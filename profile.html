@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | TrashClick</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="layout">
+    <!-- Main Container -->
+        <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="img/logo.png" alt="TrashClick Logo" class="logo">
+                <h1 class="logo-text">TrashClick</h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="dashboard.html">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="report-waste.html">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Report Waste</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="sell-waste.html">
+                            <i class="fas fa-recycle"></i>
+                            <span>Sell Waste</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="donate-food.html">
+                            <i class="fas fa-utensils"></i>
+                            <span>Donate Food</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="community.html">
+                            <i class="fas fa-users"></i>
+                            <span>Community</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="rewards.html">
+                            <i class="fas fa-award"></i>
+                            <span>Rewards</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="settings.html" class="settings-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header with search and user actions -->
+            <header class="header">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search..." class="search-input">
+                </div>
+                
+                <div class="header-actions">
+                    <div class="dropdown">
+                        <button class="notification-btn" id="notification-toggle">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-count">3</span>
+                        </button>
+                        <div class="dropdown-content notification-dropdown">
+                            <div class="dropdown-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark all as read</button>
+                            </div>
+                            <div class="notification-list">
+                                <!-- Notifications will be loaded here -->
+                            </div>
+                            <div class="dropdown-footer">
+                                <a href="notifications.html">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button class="user-btn" id="user-dropdown-toggle">
+                            <img src="img/default-avatar.png" alt="User" id="header-avatar" class="avatar">
+                            <span id="header-username">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content user-dropdown">
+                            <a href="profile.html">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="settings.html">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="help.html">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help & Support</span>
+                            </a>
+                            <a href="#" id="header-logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Profile Content -->
+            <div class="profile-container">
+                <!-- Loading indicator -->
+                <div id="profile-loading" class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>Loading profile data...</span>
+                </div>
+
+                <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-cover">
+                        <button class="edit-cover-btn">
+                            <i class="fas fa-camera"></i> Change Cover
+                    </button>
+            </div>
+            
+            <div class="profile-info">
+                        <div class="profile-avatar-container">
+                            <img src="img/default-avatar.png" alt="User Avatar" id="profile-avatar">
+                            <button class="change-avatar-btn" title="Change Profile Picture">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                </div>
+                
+                        <div class="profile-header-details">
+                            <h1 id="user-name">User Name</h1>
+                            <p id="user-email">user@example.com</p>
+                    
+                    <div class="profile-stats">
+                                <div class="profile-stat">
+                                    <span class="stat-value" id="points-value">0</span>
+                                    <span class="stat-label">Points</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="stat-value" id="rank-value">Newcomer</span>
+                                    <span class="stat-label">Rank</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="stat-value" id="reports-value">0</span>
+                                    <span class="stat-label">Reports</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <span class="stat-value" id="badges-value">0</span>
+                                    <span class="stat-label">Badges</span>
+                                </div>
+                        </div>
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit Profile</span>
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    
+                <!-- Profile Tabs and Content -->
+                <div class="profile-content">
+                    <div class="profile-tabs">
+                        <button class="tab-btn active" data-tab="about-tab">
+                            <i class="fas fa-user"></i>
+                            <span>About</span>
+                        </button>
+                        <button class="tab-btn" data-tab="badges-tab">
+                            <i class="fas fa-award"></i>
+                            <span>Badges</span>
+                        </button>
+                        <button class="tab-btn" data-tab="activities-tab">
+                            <i class="fas fa-history"></i>
+                            <span>Activities</span>
+                        </button>
+                        <button class="tab-btn" data-tab="impact-tab">
+                            <i class="fas fa-leaf"></i>
+                            <span>Impact</span>
+                        </button>
+        </div>
+        
+                    <div class="tab-content">
+                        <!-- About Tab -->
+                        <div id="about-tab" class="tab-pane active">
+                            <div class="profile-card">
+                    <div class="card-header">
+                                    <h2>About Me</h2>
+                                    <button id="edit-about-btn" class="btn-icon">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="about-content">
+                                        <p>No bio provided yet.</p>
+                                    </div>
+                                    <div id="about-edit" style="display: none;">
+                                        <textarea id="bio-editor" placeholder="Tell us about yourself..."></textarea>
+                                        <div class="edit-actions">
+                                            <button id="cancel-about-btn" class="btn btn-secondary">Cancel</button>
+                                            <button id="save-about-btn" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-card">
+                                <div class="card-header">
+                                    <h2>Personal Information</h2>
+                                    <button id="edit-personal-btn" class="btn-icon">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div id="personal-info">
+                                        <div class="info-row">
+                                            <div class="info-label">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <span>Location</span>
+                                            </div>
+                                            <div class="info-value" id="user-location">Not specified</div>
+                                        </div>
+                                        <div class="info-row">
+                                            <div class="info-label">
+                                                <i class="fas fa-calendar-alt"></i>
+                                                <span>Joined</span>
+                                            </div>
+                                            <div class="info-value" id="user-joined">January 1, 2023</div>
+                                        </div>
+                                    </div>
+                                    <div id="personal-edit" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="location-input">Location</label>
+                                            <input type="text" id="location-input" placeholder="Enter your location">
+                                        </div>
+                                        <div class="edit-actions">
+                                            <button id="cancel-personal-btn" class="btn btn-secondary">Cancel</button>
+                                            <button id="save-personal-btn" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                        <!-- Badges Tab -->
+                        <div id="badges-tab" class="tab-pane">
+                            <div class="profile-card">
+                                <div class="card-header">
+                                    <h2>Next Badge</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="next-badge-container">
+                                        <!-- Next badge progress will be loaded here -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-card">
+                                <div class="card-header">
+                                    <h2>My Badges</h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="badges-container">
+                                        <!-- Badges will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                        <!-- Activities Tab -->
+                        <div id="activities-tab" class="tab-pane">
+                            <div class="profile-card">
+                    <div class="card-header">
+                                    <h2>Recent Activities</h2>
+                                    <div class="activity-filter">
+                                        <select id="activity-filter">
+                                            <option value="all">All Activities</option>
+                                            <option value="waste_report">Waste Reports</option>
+                                            <option value="badge_earned">Badges Earned</option>
+                                            <option value="points_earned">Points Earned</option>
+                                        </select>
+                            </div>
+                        </div>
+                                <div class="card-body">
+                                    <div class="activities-container">
+                                        <!-- Activities will be loaded here -->
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Impact Tab -->
+                        <div id="impact-tab" class="tab-pane">
+                            <div class="profile-card">
+                                <div class="card-header">
+                                    <h2>My Environmental Impact</h2>
+                    </div>
+                                <div class="card-body">
+                                    <div class="impact-summary">
+                                        <div class="impact-card">
+                                            <div class="impact-icon">
+                                                <i class="fas fa-trash-alt"></i>
+                </div>
+                                            <div class="impact-details">
+                                                <h3>Waste Collected</h3>
+                                                <p id="waste-collected">0 kg</p>
+            </div>
+        </div>
+                                        <div class="impact-card">
+                                            <div class="impact-icon">
+                                                <i class="fas fa-recycle"></i>
+            </div>
+                                            <div class="impact-details">
+                                                <h3>Waste Recycled</h3>
+                                                <p id="waste-recycled">0 kg</p>
+                </div>
+            </div>
+                                        <div class="impact-card">
+                                            <div class="impact-icon">
+                                                <i class="fas fa-cloud"></i>
+            </div>
+                                            <div class="impact-details">
+                                                <h3>CO₂ Saved</h3>
+                                                <p id="co2-saved">0 kg</p>
+                </div>
+            </div>
+                                        <div class="impact-card">
+                                            <div class="impact-icon">
+                                                <i class="fas fa-tree"></i>
+                </div>
+                                            <div class="impact-details">
+                                                <h3>Trees Saved</h3>
+                                                <p id="trees-saved">0</p>
+                </div>
+            </div>
+        </div>
+        
+                                    <div class="chart-container">
+                                        <canvas id="impact-chart"></canvas>
+                </div>
+                
+                                    <div class="impact-legend">
+                                        <div class="legend-item">
+                                            <div class="legend-color" style="background-color: #4CAF50;"></div>
+                                            <span>Waste Collected</span>
+                </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color" style="background-color: #2196F3;"></div>
+                                            <span>Waste Recycled</span>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        </main>
+        </div>
+    
+    <!-- Avatar Upload Modal -->
+    <div id="avatar-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Profile Picture</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="avatar-upload-container">
+                    <div class="avatar-preview">
+                        <img src="img/default-avatar.png" alt="Avatar Preview" id="avatar-preview">
+                </div>
+                    <div class="avatar-upload-actions">
+                        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                        <button class="btn btn-secondary" onclick="document.getElementById('avatar-upload').click()">
+                            <i class="fas fa-upload"></i>
+                            <span>Select Image</span>
+                        </button>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-cancel">Cancel</button>
+                <button class="btn btn-primary" id="save-avatar">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="toast"></div>
+    
+    <!-- Scripts -->
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
+

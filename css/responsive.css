@@ -1,0 +1,768 @@
+/**
+ * Responsive styles for TrashClick application
+ * Ensures proper display on different device sizes
+ */
+
+/* Extra small devices (phones, 576px and down) */
+@media (max-width: 576px) {
+  /* General layout adjustments */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  /* Typography adjustments */
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  /* Header adjustments */
+  .site-header {
+    padding: 10px 0;
+  }
+  
+  .site-logo img {
+    max-height: 35px;
+  }
+  
+  .nav-links {
+    display: none; /* Hide standard navigation on mobile */
+  }
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  
+  /* Make sure mobile menu is full width */
+  .mobile-menu {
+    width: 100%;
+    left: 0;
+  }
+  
+  /* Adjust form elements */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  /* Dashboard adjustments */
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .dashboard-card {
+    padding: 15px;
+  }
+  
+  /* Map adjustments */
+  .map-container {
+    height: 300px;
+  }
+  
+  /* Report form adjustments */
+  .report-form {
+    padding: 15px;
+  }
+  
+  .photo-upload-container {
+    flex-direction: column;
+  }
+  
+  .upload-preview {
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  /* Profile adjustments */
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-avatar {
+    margin: 0 auto 15px;
+  }
+  
+  .profile-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  /* Leaderboard adjustments */
+  .leaderboard-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-group {
+    margin-bottom: 10px;
+  }
+  
+  .top-users {
+    flex-direction: column;
+  }
+  
+  .user-card {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Achievement adjustments */
+  .badges-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .achievement-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .achievement-icon {
+    margin: 0 auto 10px;
+  }
+  
+  /* Messages adjustments */
+  .message-container {
+    padding: 10px;
+  }
+  
+  .conversation-list {
+    display: none; /* Hide on mobile when message is open */
+  }
+  
+  .messages-wrapper.active-conversation .conversation-list {
+    display: none;
+  }
+  
+  .messages-wrapper.active-conversation .message-container {
+    width: 100%;
+  }
+  
+  .back-to-conversations {
+    display: block;
+  }
+  
+  /* Footer adjustments */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-section {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  /* Modal adjustments */
+  .modal-content {
+    width: 95%;
+    max-width: none;
+    margin: 0 auto;
+  }
+  
+  /* Notification adjustments */
+  .notification-container {
+    width: 100%;
+    right: 0;
+  }
+  
+  .notification {
+    margin: 5px;
+    max-width: calc(100% - 10px);
+  }
+  
+  /* Scroll to top button */
+  .scroll-to-top-btn {
+    bottom: 70px; /* Position above bottom mobile nav */
+    right: 20px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  /* Dashboard stats slightly wider */
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Profile stats in two rows */
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Achievement badges in three columns */
+  .badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Messaging layout with narrow conversations list */
+  .conversation-list {
+    width: 35%;
+  }
+  
+  .message-container {
+    width: 65%;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Main container padding adjustment */
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  /* Dashboard layout improvements */
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  /* Map taller on tablets */
+  .map-container {
+    height: 400px;
+  }
+  
+  /* Profile layout improvements */
+  .profile-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Achievement badges in grid */
+  .badges-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Leaderboard top users in row */
+  .top-users {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  /* Messaging layout */
+  .conversation-list {
+    width: 30%;
+  }
+  
+  .message-container {
+    width: 70%;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  /* Main container max-width */
+  .container {
+    max-width: 960px;
+  }
+  
+  /* Standard desktop layout */
+  .dashboard-stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  /* Map full height */
+  .map-container {
+    height: 500px;
+  }
+  
+  /* Profile with larger avatar */
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+  }
+  
+  /* Achievement badges in 5 columns */
+  .badges-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  /* Messaging layout with comfortable proportions */
+  .conversation-list {
+    width: 30%;
+  }
+  
+  .message-container {
+    width: 70%;
+  }
+  
+  /* Hide mobile specific elements */
+  .mobile-menu-toggle,
+  .back-to-conversations {
+    display: none;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  /* Main container larger */
+  .container {
+    max-width: 1140px;
+  }
+  
+  /* Wider spacing */
+  .dashboard-stats {
+    gap: 30px;
+  }
+  
+  /* Larger profile image */
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+  }
+  
+  /* Even more achievement badges visible */
+  .badges-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  
+  /* Messaging layout with narrower conversation list */
+  .conversation-list {
+    width: 25%;
+  }
+  
+  .message-container {
+    width: 75%;
+  }
+}
+
+/* Mobile Menu Specific Styles */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background-color: var(--bg-color);
+  z-index: 1000;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-menu-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.mobile-menu-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu-items a {
+  padding: 12px 0;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu-items a i {
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+}
+
+.mobile-menu-items a:hover {
+  color: var(--primary-color);
+}
+
+.mobile-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.mobile-menu-backdrop.open {
+  display: block;
+}
+
+/* Responsive Table Adjustments */
+@media (max-width: 768px) {
+  .responsive-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .responsive-table td,
+  .responsive-table th {
+    white-space: nowrap;
+  }
+  
+  /* For tables that should reformat on mobile */
+  .card-table thead {
+    display: none;
+  }
+  
+  .card-table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 10px;
+  }
+  
+  .card-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 8px 0;
+    text-align: right;
+  }
+  
+  .card-table tbody td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    margin-right: 10px;
+    text-align: left;
+  }
+}
+
+/* Fix for grid layout in older browsers */
+@supports not (display: grid) {
+  .dashboard-stats,
+  .profile-stats,
+  .badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .dashboard-stats > div,
+  .profile-stats > div {
+    flex: 0 0 calc(50% - 20px);
+    margin: 10px;
+  }
+  
+  .badges-grid > div {
+    flex: 0 0 calc(33.33% - 20px);
+    margin: 10px;
+  }
+  
+  @media (min-width: 768px) {
+    .dashboard-stats > div,
+    .profile-stats > div {
+      flex: 0 0 calc(33.33% - 20px);
+    }
+    
+    .badges-grid > div {
+      flex: 0 0 calc(25% - 20px);
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .dashboard-stats > div {
+      flex: 0 0 calc(25% - 20px);
+    }
+    
+    .profile-stats > div {
+      flex: 0 0 calc(20% - 20px);
+    }
+    
+    .badges-grid > div {
+      flex: 0 0 calc(20% - 20px);
+    }
+  }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 576px) {
+  /* Increase tap target sizes */
+  button, 
+  .btn, 
+  a.btn,
+  .form-control,
+  select,
+  .nav-link {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Fix font size minimums */
+  body, 
+  p, 
+  .btn,
+  .form-control {
+    font-size: 16px !important; /* Prevent zooming on input focus on iOS */
+  }
+  
+  /* Increase input spacing */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Make sure buttons are not too close */
+  .btn + .btn {
+    margin-top: 10px;
+  }
+  
+  /* Adjust form layout for easier mobile use */
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .form-row > div {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+
+/* Added print styles */
+@media print {
+  header, 
+  footer, 
+  nav, 
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background-color: white;
+    color: black;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  /* Ensure that all content is visible */
+  .dashboard-stats,
+  .profile-stats {
+    display: block;
+  }
+  
+  .dashboard-stats > div,
+  .profile-stats > div {
+    width: 100%;
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+  }
+}
+
+/* Fix specific component issues */
+@media (max-width: 768px) {
+  /* Leaderboard user cards */
+  .leaderboard-item {
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+  
+  .leaderboard-rank {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  
+  .leaderboard-user-info {
+    flex: 1;
+    min-width: unset;
+  }
+  
+  .leaderboard-stats {
+    width: 100%;
+    margin-top: 10px;
+    justify-content: flex-start;
+  }
+  
+  /* Report details */
+  .report-details {
+    flex-direction: column;
+  }
+  
+  .report-map {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+  }
+  
+  .report-info {
+    width: 100%;
+  }
+  
+  /* Login/register forms */
+  .auth-container {
+    width: 100%;
+    padding: 20px 15px;
+  }
+  
+  /* Notification layout */
+  .notification {
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .notification-content {
+    margin: 10px 0;
+  }
+}
+
+/* Fix for dark mode on mobile */
+@media (max-width: 768px) {
+  [data-theme="dark"] .mobile-menu {
+    background-color: var(--bg-color-dark);
+    border-color: var(--border-color-dark);
+  }
+  
+  [data-theme="dark"] .mobile-menu-items a {
+    border-color: var(--border-color-dark);
+  }
+}
+
+/* Fix for fixed bottom navigation on mobile */
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color-lighter);
+    text-decoration: none;
+    font-size: 12px;
+  }
+  
+  .mobile-nav-item i {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .mobile-nav-item.active {
+    color: var(--primary-color);
+  }
+  
+  [data-theme="dark"] .mobile-bottom-nav {
+    background-color: var(--bg-color-dark);
+    border-color: var(--border-color-dark);
+  }
+  
+  /* Add padding to the bottom of the page to account for the nav */
+  body {
+    padding-bottom: 60px;
+  }
+  
+  /* Hide footer on mobile */
+  footer {
+    padding-bottom: 70px;
+  }
+}
+
+/* Scroll to top button */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.scroll-to-top-btn:hover {
+  background-color: var(--primary-color-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Add transition to theme change */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Fix for position sticky on older browsers */
+@supports not (position: sticky) {
+  .site-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  body {
+    padding-top: 70px;
+  }
+}
+
+/* Improve accessibility focus styles */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] a:focus, 
+[data-theme="dark"] button:focus, 
+[data-theme="dark"] input:focus, 
+[data-theme="dark"] select:focus, 
+[data-theme="dark"] textarea:focus {
+  outline-color: var(--primary-color-light);
+} 

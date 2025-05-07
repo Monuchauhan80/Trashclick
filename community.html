@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community | TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/community.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/community.js" type="module"></script>
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-recycle"></i>
+                <span>TrashClick</span>
+            </a>
+
+            <!-- Main Navigation -->
+            <nav class="navbar-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                    <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                    <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                    <li><a href="community.html" class="active"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Right Side Menu -->
+            <div class="navbar-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown notifications-dropdown">
+                    <button class="dropdown-toggle" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">
+                            <h3>Notifications</h3>
+                            <button class="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="notification-list">
+                            <li class="notification-item unread">
+                                <div class="notification-icon green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Your waste report was accepted</p>
+                                    <p class="notification-time">Just now</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">You earned 50 points for your report</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon amber">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">You earned a new badge!</p>
+                                    <p class="notification-time">Yesterday</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all">View all notifications</a>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown user-dropdown">
+                    <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                        <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                        <span class="user-name">John Doe</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                <li><a href="community.html" class="active"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="theme-toggle mobile" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="mobile-profile">
+                    <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="community-header">
+            <div class="container">
+                <h1>Community</h1>
+                <p>Connect, share, and learn with fellow eco-warriors</p>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="community-layout">
+                <!-- Left Sidebar -->
+                <div class="community-sidebar">
+                    <div class="community-nav">
+                        <h3>Explore</h3>
+                        <ul>
+                            <li class="active"><a href="#"><i class="fas fa-stream"></i> All Posts</a></li>
+                            <li><a href="#"><i class="fas fa-fire"></i> Trending</a></li>
+                            <li><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                            <li><a href="#"><i class="fas fa-lightbulb"></i> Tips & Tricks</a></li>
+                            <li><a href="#"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                            <li><a href="#"><i class="fas fa-certificate"></i> Success Stories</a></li>
+                        </ul>
+                        
+                        <h3>My Groups</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-tree"></i> Tree Planters</a></li>
+                            <li><a href="#"><i class="fas fa-water"></i> Beach Cleaners</a></li>
+                            <li><a href="#"><i class="fas fa-recycle"></i> Zero Waste Living</a></li>
+                            <li><a href="#"><i class="fas fa-plus-circle"></i> Join More Groups</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="community-main">
+                    <!-- Create Post -->
+                    <div class="create-post">
+                        <div class="create-post-header">
+                            <img src="img/avatar.jpg" alt="User Avatar" id="create-post-avatar" class="user-avatar">
+                            <div class="post-input-wrapper">
+                                <input type="text" id="post-input" placeholder="Share your environmental journey...">
+                            </div>
+                        </div>
+                        
+                        <div class="create-post-actions">
+                            <button class="post-action-btn photo-btn">
+                                <i class="fas fa-image"></i> Photo
+                            </button>
+                            <button class="post-action-btn video-btn">
+                                <i class="fas fa-video"></i> Video
+                            </button>
+                            <button class="post-action-btn location-btn">
+                                <i class="fas fa-map-marker-alt"></i> Location
+                            </button>
+                            <button class="post-action-btn event-btn">
+                                <i class="fas fa-calendar-plus"></i> Event
+                            </button>
+                            <button class="btn btn-primary post-btn" id="submit-post">Post</button>
+                        </div>
+                        
+                        <!-- Hidden upload form -->
+                        <div class="post-upload-form" style="display: none;">
+                            <textarea id="post-content" placeholder="Write your post..."></textarea>
+                            <div class="upload-preview" id="upload-preview"></div>
+                            <div class="upload-actions">
+                                <label for="file-upload" class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i> Choose File
+                                </label>
+                                <input id="file-upload" type="file" accept="image/*,video/*" style="display: none;">
+                                <button class="btn btn-outline cancel-upload">Cancel</button>
+                                <button class="btn btn-primary submit-upload">Share Post</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feed Filter -->
+                    <div class="feed-filter">
+                        <button class="filter-btn active" data-filter="all">All Posts</button>
+                        <button class="filter-btn" data-filter="photos">Photos</button>
+                        <button class="filter-btn" data-filter="videos">Videos</button>
+                        <button class="filter-btn" data-filter="events">Events</button>
+                        <button class="filter-btn" data-filter="following">Following</button>
+                    </div>
+                    
+                    <!-- Post Feed -->
+                    <div class="post-feed" id="post-feed">
+                        <div class="loading-spinner" id="feed-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        
+                        <!-- Posts will be loaded dynamically -->
+
+                        <!-- Sample post for design -->
+                        <div class="post-card">
+                            <div class="post-header">
+                                <img src="img/avatar-2.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="post-info">
+                                    <h3 class="post-author">Emma Johnson</h3>
+                                    <div class="post-meta">
+                                        <span class="post-time">2 hours ago</span>
+                                        <span class="post-location"><i class="fas fa-map-marker-alt"></i> Central Park</span>
+                                    </div>
+                                </div>
+                                <div class="post-actions">
+                                    <button class="btn-icon"><i class="fas fa-ellipsis-h"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="post-content">
+                                <p>Spent the morning cleaning up Central Park with our Zero Waste group. Amazing to see so many volunteers! We collected over 50 bags of trash and recyclables. 🌱 #CleanPlanet #EcoWarrior</p>
+                                <div class="post-image">
+                                    <img src="img/community-post-1.jpg" alt="Park cleanup">
+                                </div>
+                            </div>
+                            
+                            <div class="post-stats">
+                                <div class="like-count">
+                                    <i class="fas fa-heart"></i> 42 Likes
+                                </div>
+                                <div class="comment-count">
+                                    <i class="fas fa-comment"></i> 8 Comments
+                                </div>
+                                <div class="share-count">
+                                    <i class="fas fa-share"></i> 3 Shares
+                                </div>
+                            </div>
+                            
+                            <div class="post-actions-bar">
+                                <button class="post-action-btn like-btn">
+                                    <i class="far fa-heart"></i> Like
+                                </button>
+                                <button class="post-action-btn comment-btn">
+                                    <i class="far fa-comment"></i> Comment
+                                </button>
+                                <button class="post-action-btn share-btn">
+                                    <i class="far fa-share-square"></i> Share
+                                </button>
+                            </div>
+                            
+                            <div class="post-comments">
+                                <div class="comment">
+                                    <img src="img/avatar-3.jpg" alt="User Avatar" class="user-avatar small">
+                                    <div class="comment-content">
+                                        <h4>Alex Turner</h4>
+                                        <p>Great job, Emma! Wish I could have joined you all. Next time for sure!</p>
+                                        <div class="comment-actions">
+                                            <button class="btn-link">Like</button>
+                                            <button class="btn-link">Reply</button>
+                                            <span class="comment-time">1 hour ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="comment">
+                                    <img src="img/avatar-4.jpg" alt="User Avatar" class="user-avatar small">
+                                    <div class="comment-content">
+                                        <h4>Sarah Williams</h4>
+                                        <p>This is inspiring! Our neighborhood could use a cleanup like this.</p>
+                                        <div class="comment-actions">
+                                            <button class="btn-link">Like</button>
+                                            <button class="btn-link">Reply</button>
+                                            <span class="comment-time">30 minutes ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="add-comment">
+                                    <img src="img/avatar.jpg" alt="Your Avatar" class="user-avatar small">
+                                    <div class="comment-input-wrapper">
+                                        <input type="text" placeholder="Write a comment...">
+                                        <button class="btn-icon send-comment">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event post example -->
+                        <div class="post-card event-post">
+                            <div class="post-header">
+                                <img src="img/avatar-5.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="post-info">
+                                    <h3 class="post-author">Green City Initiative</h3>
+                                    <div class="post-meta">
+                                        <span class="post-time">Yesterday</span>
+                                        <span class="post-type"><i class="fas fa-calendar-alt"></i> Event</span>
+                                    </div>
+                                </div>
+                                <div class="post-actions">
+                                    <button class="btn-icon"><i class="fas fa-ellipsis-h"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="post-content">
+                                <h3 class="event-title">Citywide Recycling Day</h3>
+                                <div class="event-details">
+                                    <div class="event-detail">
+                                        <i class="fas fa-calendar-day"></i>
+                                        <span>Saturday, June 10, 2023</span>
+                                    </div>
+                                    <div class="event-detail">
+                                        <i class="fas fa-clock"></i>
+                                        <span>9:00 AM - 2:00 PM</span>
+                                    </div>
+                                    <div class="event-detail">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>City Hall Plaza, Downtown</span>
+                                    </div>
+                                </div>
+                                <p>Join us for a citywide recycling drive! Bring your electronic waste, plastics, and other recyclables. We'll have experts on hand to help sort and explain proper recycling techniques. Free refreshments for all participants! 🌎</p>
+                                <div class="post-image">
+                                    <img src="img/community-event-1.jpg" alt="Recycling event poster">
+                                </div>
+                            </div>
+                            
+                            <div class="event-attendance">
+                                <div class="attendance-stats">
+                                    <span class="attendance-count">65 Going</span>
+                                    <span class="attendance-count">28 Interested</span>
+                                </div>
+                                <div class="attendance-actions">
+                                    <button class="btn btn-outline">Interested</button>
+                                    <button class="btn btn-primary">Going</button>
+                                </div>
+                            </div>
+                            
+                            <div class="post-stats">
+                                <div class="like-count">
+                                    <i class="fas fa-heart"></i> 78 Likes
+                                </div>
+                                <div class="comment-count">
+                                    <i class="fas fa-comment"></i> 15 Comments
+                                </div>
+                                <div class="share-count">
+                                    <i class="fas fa-share"></i> 23 Shares
+                                </div>
+                            </div>
+                            
+                            <div class="post-actions-bar">
+                                <button class="post-action-btn like-btn">
+                                    <i class="far fa-heart"></i> Like
+                                </button>
+                                <button class="post-action-btn comment-btn">
+                                    <i class="far fa-comment"></i> Comment
+                                </button>
+                                <button class="post-action-btn share-btn">
+                                    <i class="far fa-share-square"></i> Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Sidebar -->
+                <div class="community-right-sidebar">
+                    <!-- Messaging Section -->
+                    <div class="sidebar-card messaging-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-comments"></i> Messages</h3>
+                            <button class="new-chat-btn"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <div class="chat-contacts">
+                                <div class="chat-contact active" data-user-id="user1">
+                                    <div class="contact-status online"></div>
+                                    <img src="img/avatar.jpg" alt="John Smith" class="chat-avatar">
+                                    <div class="chat-contact-info">
+                                        <h4>John Smith</h4>
+                                        <p>Hey, are you going to the cleanup event?</p>
+                                    </div>
+                                    <span class="unread-count">2</span>
+                                </div>
+                                <div class="chat-contact" data-user-id="user2">
+                                    <div class="contact-status away"></div>
+                                    <img src="img/avatar-7.jpg" alt="Sarah Jones" class="chat-avatar">
+                                    <div class="chat-contact-info">
+                                        <h4>Sarah Jones</h4>
+                                        <p>Thanks for the help!</p>
+                                    </div>
+                                </div>
+                                <div class="chat-contact" data-user-id="user3">
+                                    <div class="contact-status online"></div>
+                                    <img src="img/avatar-8.jpg" alt="Community Admin" class="chat-avatar">
+                                    <div class="chat-contact-info">
+                                        <h4>Community Admin</h4>
+                                        <p>Welcome to TrashClick!</p>
+                                    </div>
+                                    <span class="unread-count">1</span>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-outline view-all-messages">View All Messages</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Upcoming Events -->
+                    <div class="sidebar-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-calendar-alt"></i> Upcoming Events</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="date-month">JUN</div>
+                                    <div class="date-day">10</div>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Citywide Recycling Day</h4>
+                                    <p><i class="fas fa-map-marker-alt"></i> City Hall Plaza</p>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="date-month">JUN</div>
+                                    <div class="date-day">15</div>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Beach Cleanup Drive</h4>
+                                    <p><i class="fas fa-map-marker-alt"></i> Sunset Beach</p>
+                                </div>
+                            </div>
+                            
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="date-month">JUN</div>
+                                    <div class="date-day">22</div>
+                                </div>
+                                <div class="event-info">
+                                    <h4>Workshop: Home Composting</h4>
+                                    <p><i class="fas fa-map-marker-alt"></i> Community Center</p>
+                                </div>
+                            </div>
+                            
+                            <a href="#" class="btn btn-outline">See All Events</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Contributors -->
+                    <div class="sidebar-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-award"></i> Top Contributors</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="contributor-item">
+                                <div class="rank">1</div>
+                                <img src="img/avatar-6.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="contributor-info">
+                                    <h4>Michael Chen</h4>
+                                    <p>2,450 points</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contributor-item">
+                                <div class="rank">2</div>
+                                <img src="img/avatar-7.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="contributor-info">
+                                    <h4>Olivia Martinez</h4>
+                                    <p>2,315 points</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contributor-item">
+                                <div class="rank">3</div>
+                                <img src="img/avatar-8.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="contributor-info">
+                                    <h4>David Wilson</h4>
+                                    <p>2,180 points</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contributor-item">
+                                <div class="rank">4</div>
+                                <img src="img/avatar-9.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="contributor-info">
+                                    <h4>Jessica Lee</h4>
+                                    <p>1,950 points</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contributor-item">
+                                <div class="rank">5</div>
+                                <img src="img/avatar-10.jpg" alt="User Avatar" class="user-avatar">
+                                <div class="contributor-info">
+                                    <h4>Robert Taylor</h4>
+                                    <p>1,875 points</p>
+                                </div>
+                            </div>
+                            
+                            <a href="leaderboard.html" class="btn btn-outline">View Leaderboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p class="footer-desc">Smart waste management platform helping communities create a cleaner, more sustainable future through technology and cooperation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="report-waste.html">Report Waste</a></li>
+                            <li><a href="sell-waste.html">Sell Waste</a></li>
+                            <li><a href="donate-food.html">Donate Food</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="guidelines.html">Guidelines</a></li>
+                            <li><a href="support.html">Support Center</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="cookies.html">Cookie Policy</a></li>
+                            <li><a href="data-processing.html">Data Processing</a></li>
+                            <li><a href="compliance.html">Compliance</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-download">
+                    <a href="#" class="download-btn"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="download-btn"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Dialog -->
+    <div class="chat-dialog" id="chatDialog">
+        <div class="chat-dialog-header">
+            <div class="chat-dialog-title">
+                <img src="img/avatar.jpg" alt="John Smith" id="chatDialogAvatar">
+                <h3 id="chatDialogName">John Smith</h3>
+            </div>
+            <div class="chat-dialog-actions">
+                <button class="chat-dialog-btn minimize-chat">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="chat-dialog-btn close-chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="chat-dialog-messages" id="chatDialogMessages">
+            <!-- Messages will be loaded dynamically -->
+        </div>
+        <div class="chat-dialog-input">
+            <input type="text" placeholder="Type a message..." id="chatInput">
+            <button id="sendChatBtn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html> 

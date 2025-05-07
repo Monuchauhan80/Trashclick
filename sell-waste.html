@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Waste | TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sell-waste.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global initGoogleMaps function -->
+    <script>
+        window.initGoogleMaps = function() {
+            console.log("Google Maps API loaded successfully from global scope.");
+            document.dispatchEvent(new Event('googleMapsLoaded'));
+        };
+    </script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ0PY4287NmSFhQQgCdUVL0YiVIFpj7ac&libraries=places&callback=initGoogleMaps" async defer></script>
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/maps.js" type="module"></script>
+    <script src="js/sell-waste.js" type="module"></script>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+
+            <!-- Main Navigation -->
+            <nav class="navbar-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                    <li><a href="sell-waste.html" class="active"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                    <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                    <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+
+            <!-- Right Side Menu -->
+            <div class="navbar-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown notifications-dropdown">
+                    <button class="dropdown-toggle" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark all as read</button>
+                            </div>
+                        <ul class="notification-list">
+                            <li class="notification-item unread">
+                                <div class="notification-icon green">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                    <p class="notification-text">Your recyclable listing was published!</p>
+                                    <p class="notification-time">Just now</p>
+                                    </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                    <p class="notification-text">You received a new offer for your plastic bottles</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                    </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon amber">
+                                    <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                    <p class="notification-text">You earned a badge: "Recycling Champion"</p>
+                                    <p class="notification-time">Yesterday</p>
+                                    </div>
+                            </li>
+                        </ul>
+                                <a href="#" class="view-all">View all notifications</a>
+                            </div>
+                        </div>
+
+                <!-- User Menu -->
+                    <div class="dropdown user-dropdown">
+                    <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                        <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                            <span class="user-name">John Doe</span>
+                        </button>
+                        <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                    </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                <li><a href="sell-waste.html" class="active"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="theme-toggle mobile" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="mobile-profile">
+                    <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Sell Your Recyclable Waste</h1>
+                <p>Turn your trash into cash by connecting with local recyclers</p>
+            </div>
+        </section>
+
+        <!-- Sell Waste Form Section -->
+        <section class="sell-waste-section">
+            <div class="container">
+                <div class="sell-waste-grid">
+                    <!-- Create Listing Form -->
+                    <div class="sell-waste-form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-plus-circle"></i> Create Recycling Listing</h2>
+                        </div>
+                            <div class="card-body">
+                                <form id="sell-waste-form">
+                                    <div class="form-group">
+                                        <label for="waste-type">Recyclable Type</label>
+                                        <select id="waste-type" required>
+                                            <option value="" disabled selected>Select recyclable type</option>
+                                            <option value="plastic">Plastic</option>
+                                            <option value="paper">Paper & Cardboard</option>
+                                            <option value="glass">Glass</option>
+                                            <option value="metal">Metal</option>
+                                            <option value="electronics">Electronics</option>
+                                            <option value="textiles">Textiles</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group" id="other-type-container" style="display: none;">
+                                        <label for="other-type">Specify Other Type</label>
+                                        <input type="text" id="other-type" placeholder="Specify the recyclable type">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="title">Listing Title</label>
+                                        <input type="text" id="title" placeholder="E.g., 5kg of Plastic Bottles" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity</label>
+                                        <div class="quantity-input">
+                                            <input type="number" id="quantity" min="1" step="0.1" required>
+                                            <select id="unit">
+                                                <option value="kg">Kilograms (kg)</option>
+                                                <option value="g">Grams (g)</option>
+                                                <option value="lb">Pounds (lb)</option>
+                                                <option value="items">Items</option>
+                                            </select>
+                            </div>
+                        </div>
+                        
+                            <div class="form-group">
+                                        <label for="condition">Condition</label>
+                                        <select id="condition" required>
+                                            <option value="" disabled selected>Select condition</option>
+                                            <option value="sorted">Sorted & Clean</option>
+                                            <option value="unsorted">Unsorted but Clean</option>
+                                            <option value="needs-cleaning">Needs Cleaning</option>
+                                            <option value="mixed">Mixed Materials</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="price">Asking Price (optional)</label>
+                                        <div class="price-input">
+                                            <span class="currency-symbol">$</span>
+                                            <input type="number" id="price" min="0" step="0.01" placeholder="Leave blank to accept offers">
+                                </div>
+                            </div>
+                            
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea id="description" rows="4" placeholder="Describe your recyclable materials in detail..." required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Pickup Location</label>
+                                        <div class="location-options">
+                                            <div class="radio-group">
+                                                <input type="radio" id="location-profile" name="location" value="profile" checked>
+                                                <label for="location-profile">Use My Profile Address</label>
+                                            </div>
+                                            <div class="radio-group">
+                                                <input type="radio" id="location-custom" name="location" value="custom">
+                                                <label for="location-custom">Set Custom Location</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                    <div class="form-group" id="custom-location-container" style="display: none;">
+                                        <label for="custom-location">Custom Pickup Address</label>
+                                        <input type="text" id="custom-location" placeholder="Enter address for pickup">
+                                        <div id="location-map" class="location-map"></div>
+                                        <p class="map-note">Drag the marker to set your exact location</p>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="photos">Upload Photos</label>
+                                        <div class="file-upload">
+                                            <input type="file" id="photos" multiple accept="image/*">
+                                            <label for="photos" class="file-upload-label">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <span>Choose files or drag & drop</span>
+                                            </label>
+                                        </div>
+                                        <div id="photo-preview" class="photo-preview"></div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="terms" required>
+                                            <label for="terms">I agree to the <a href="terms.html">Terms of Service</a> and confirm that these materials are legal to sell.</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary btn-block">Create Listing</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sell Waste Info -->
+                    <div class="sell-waste-info-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-info-circle"></i> How It Works</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="how-it-works">
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>1</span>
+                                </div>
+                                        <div class="step-content">
+                                            <h3>Create Your Listing</h3>
+                                            <p>Fill out the form with details about your recyclable materials, including type, quantity, condition, and photos.</p>
+                            </div>
+                        </div>
+                        
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>2</span>
+                                        </div>
+                                        <div class="step-content">
+                                            <h3>Receive Offers</h3>
+                                            <p>Local recyclers and waste collectors will contact you with offers to purchase your materials.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>3</span>
+                                        </div>
+                                        <div class="step-content">
+                                            <h3>Arrange Pickup</h3>
+                                            <p>Once you accept an offer, you can arrange a pickup time that works for both parties.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>4</span>
+                                        </div>
+                                        <div class="step-content">
+                                            <h3>Get Paid & Earn Points</h3>
+                                            <p>Receive payment for your materials and earn TrashClick points for your contribution to recycling.</p>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        <div class="card tips-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-lightbulb"></i> Tips for Selling</h2>
+                            </div>
+                            <div class="card-body">
+                                <ul class="tips-list">
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Clean materials typically sell for higher prices</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Sorting materials by type makes them more valuable</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Clear, well-lit photos increase your chances of selling</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Be specific about quantities and conditions</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Respond promptly to inquiries and offers</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card recyclable-rates-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-chart-line"></i> Current Market Rates</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="rates-table-container">
+                                    <table class="rates-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Material</th>
+                                                <th>Rate (per kg)</th>
+                                                <th>Trend</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Plastic (PET)</td>
+                                                <td>$0.20 - $0.35</td>
+                                                <td class="trend up"><i class="fas fa-arrow-up"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Paper & Cardboard</td>
+                                                <td>$0.05 - $0.15</td>
+                                                <td class="trend stable"><i class="fas fa-equals"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Glass</td>
+                                                <td>$0.02 - $0.10</td>
+                                                <td class="trend down"><i class="fas fa-arrow-down"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Aluminum</td>
+                                                <td>$0.40 - $0.70</td>
+                                                <td class="trend up"><i class="fas fa-arrow-up"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Electronics</td>
+                                                <td>$0.50 - $5.00</td>
+                                                <td class="trend stable"><i class="fas fa-equals"></i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="rates-note">*Rates are approximate and may vary by location and quality</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Stories Section -->
+        <section class="success-stories-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Success Stories</h2>
+                    <p>See how others are earning money by selling their recyclable materials</p>
+                </div>
+                
+                <div class="success-stories-grid">
+                    <div class="success-story">
+                        <div class="success-story-image">
+                            <img src="img/success-story-1.jpg" alt="Sarah's success story">
+                        </div>
+                        <div class="success-story-content">
+                            <h3>Sarah Johnson</h3>
+                            <p class="success-story-amount">Earned $210 in 3 months</p>
+                            <p>"I've been collecting recyclable materials from my neighborhood and selling them through TrashClick. It's amazing how much waste we can divert from landfills while making some extra cash!"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="success-story">
+                        <div class="success-story-image">
+                            <img src="img/success-story-2.jpg" alt="Mark's success story">
+                        </div>
+                        <div class="success-story-content">
+                            <h3>Mark Rodriguez</h3>
+                            <p class="success-story-amount">Earned $345 in 2 months</p>
+                            <p>"As a small business owner, I had a lot of cardboard and packaging waste. Instead of paying for disposal, I'm now making money by selling it to recyclers through the platform."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="success-story">
+                        <div class="success-story-image">
+                            <img src="img/success-story-3.jpg" alt="Community college success story">
+                        </div>
+                        <div class="success-story-content">
+                            <h3>Greenfield Community College</h3>
+                            <p class="success-story-amount">Raised $1,250 for scholarships</p>
+                            <p>"Our student environmental club collected recyclables across campus and sold them through TrashClick. The money we earned went directly to our sustainability scholarship fund!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+            <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p class="footer-desc">Smart waste management platform helping communities create a cleaner, more sustainable future through technology and cooperation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="report-waste.html">Report Waste</a></li>
+                            <li><a href="sell-waste.html">Sell Waste</a></li>
+                            <li><a href="donate-food.html">Donate Food</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="guidelines.html">Guidelines</a></li>
+                            <li><a href="support.html">Support Center</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="cookies.html">Cookie Policy</a></li>
+                            <li><a href="data-processing.html">Data Processing</a></li>
+                            <li><a href="compliance.html">Compliance</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-download">
+                    <a href="#" class="download-btn"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="download-btn"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Listing Created Successfully!</h2>
+                <p>Your recyclable waste listing has been published. We'll notify you when you receive offers.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="view-listing-btn">View My Listing</button>
+                    <button class="btn btn-outline modal-close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="toast"></div>
+</body>
+</html>
+

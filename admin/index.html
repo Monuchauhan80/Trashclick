@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - TrashClick</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/supabase.js" type="module"></script>
+    <script src="../js/auth.js" type="module"></script>
+    <script src="../js/theme.js" type="module"></script>
+    <script src="../js/charts.js" type="module"></script>
+    <script src="../js/admin.js" type="module"></script>
+</head>
+<body class="light-mode">
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="index.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html">
+                            <i class="fas fa-users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Waste Reports</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="recycling.html">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Recycling</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="donations.html">
+                            <i class="fas fa-hands-helping"></i>
+                            <span>Donations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="queries.html">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Queries</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="analytics.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html">
+                    <i class="fas fa-home"></i>
+                    <span>Back to Site</span>
+                </a>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="header-actions">
+                    <div class="theme-toggle-wrapper">
+                        <span class="theme-icon"><i class="fas fa-sun"></i></span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                    </div>
+                    
+                    <div class="notifications-dropdown">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark all as read</button>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <div class="notification-icon report">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>New waste report submitted by <strong>John Doe</strong></p>
+                                        <span class="notification-time">15 minutes ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon query">
+                                        <i class="fas fa-question-circle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p>New query from <strong>Jane Smith</strong> needs attention</p>
+                                        <span class="notification-time">1 hour ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon user">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p><strong>5 new users</strong> registered today</p>
+                                        <span class="notification-time">3 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-footer">
+                                <a href="notifications.html">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-dropdown">
+                        <button class="user-dropdown-toggle">
+                            <img src="../img/admin-avatar.jpg" alt="Admin Avatar" class="user-avatar">
+                            <span class="user-name">Admin User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown-menu">
+                            <a href="profile.html">
+                                <i class="fas fa-user"></i>
+                                Profile
+                            </a>
+                            <a href="settings.html">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Admin Content -->
+            <div class="admin-content">
+                <div class="page-header">
+                    <h1>Admin Dashboard</h1>
+                    <p>Welcome to the TrashClick admin dashboard. View and manage all platform activities.</p>
+                </div>
+                
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total Users</h3>
+                            <p class="stat-number" id="total-users">0</p>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>12%</span> from last month
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon reports">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Waste Reports</h3>
+                            <p class="stat-number" id="waste-reports">0</p>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>8%</span> from last month
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon recycling">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Recycled Waste</h3>
+                            <p class="stat-number" id="recycled-waste">0 kg</p>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>15%</span> from last month
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon donations">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Food Donations</h3>
+                            <p class="stat-number" id="food-donations">0</p>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>5%</span> from last month
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Activity Overview</h3>
+                            <div class="chart-controls">
+                                <select id="activity-timeframe">
+                                    <option value="week">This Week</option>
+                                    <option value="month" selected>This Month</option>
+                                    <option value="year">This Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="activity-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Waste Distribution</h3>
+                            <div class="chart-controls">
+                                <select id="waste-distribution-type">
+                                    <option value="type">By Type</option>
+                                    <option value="location">By Location</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="waste-distribution-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="recent-activity-card">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                        <a href="analytics.html" class="view-all">View All</a>
+                    </div>
+                    <div class="activity-list" id="recent-activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon report">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>New Waste Report</h4>
+                                <p>John Doe reported plastic waste at Central Park</p>
+                                <span class="activity-time">15 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon recycle">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Recycling Transaction</h4>
+                                <p>Jane Smith sold 5kg of paper for recycling</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon donation">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Food Donation</h4>
+                                <p>Local Restaurant donated 10kg of food</p>
+                                <span class="activity-time">3 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon user">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>New User Registration</h4>
+                                <p>5 new users joined TrashClick</p>
+                                <span class="activity-time">5 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon query">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>New Query</h4>
+                                <p>User query about recycling electronics</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loading-indicator">
+        <div class="spinner"></div>
+    </div>
+</body>
+</html>
+

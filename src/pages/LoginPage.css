@@ -1,0 +1,58 @@
+.login-page {
+  min-height: calc(100vh - 150px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.auth-card {
+  max-width: 450px;
+  width: 100%;
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 2.5rem;
+}
+
+.auth-card h1 {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-size: 1.75rem;
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.forgot-password {
+  font-size: 0.9rem;
+}
+
+.form-control {
+  margin-bottom: 0.5rem;
+}
+
+.auth-alternatives {
+  text-align: center;
+  margin-top: 2rem;
+  color: #666;
+}
+
+.auth-link {
+  font-weight: 500;
+}
+
+@media (max-width: 576px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+} 

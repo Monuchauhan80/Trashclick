@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/utils.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+            </div>
+            
+            <nav class="navbar-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Services</a>
+                        <div class="dropdown-menu">
+                            <a href="report-waste.html">Report Waste</a>
+                            <a href="sell-waste.html">Sell Waste</a>
+                            <a href="donate-food.html">Donate Food</a>
+                            <a href="raise-query.html">Raise Query</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="navbar-actions auth-links">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            
+            <div class="navbar-actions user-actions" style="display: none;">
+                <div class="theme-toggle-wrapper">
+                    <span class="theme-icon"><i class="fas fa-sun"></i></span>
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                </div>
+                
+                <div class="notification-dropdown">
+                    <button class="btn btn-icon" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+                <div class="user-dropdown" id="user-dropdown">
+                    <button class="user-dropdown-toggle">
+                        <img src="img/default-avatar.jpg" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown-menu">
+                        <a href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="rewards.html">
+                            <i class="fas fa-trophy"></i>
+                            Rewards
+                        </a>
+                        <a href="admin/index.html" class="admin-link" style="display: none;">
+                            <i class="fas fa-user-shield"></i>
+                            Admin Panel
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <div class="container">
+                <a href="report-waste.html">Report Waste</a>
+                <a href="sell-waste.html">Sell Waste</a>
+                <a href="donate-food.html">Donate Food</a>
+                <a href="raise-query.html">Raise Query</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="mobile-actions auth-links">
+                    <a href="login.html" class="btn btn-ghost-mobile">Login</a>
+                    <a href="register.html" class="btn btn-primary-mobile">Register</a>
+                </div>
+                <div class="mobile-actions user-menu" style="display: none;">
+                    <a href="dashboard.html" class="btn btn-ghost-mobile">Dashboard</a>
+                    <a href="profile.html" class="btn btn-ghost-mobile">Profile</a>
+                    <a href="rewards.html" class="btn btn-ghost-mobile">Rewards</a>
+                    <a href="admin/index.html" class="btn btn-ghost-mobile admin-link" style="display: none;">Admin Panel</a>
+                    <a href="#" id="mobile-logout-btn" class="btn btn-primary-mobile">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Terms and Conditions</h1>
+            <p>Please read these terms carefully before using TrashClick</p>
+        </div>
+        
+        <div class="content-section">
+            <div class="terms-content">
+                <section class="terms-section">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing or using the TrashClick platform, including our website, mobile applications, and services (collectively, the "Services"), you agree to be bound by these Terms and Conditions. If you do not agree to all the terms and conditions, you may not access or use the Services.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>2. Description of Services</h2>
+                    <p>TrashClick is a platform that connects users with waste management services. Our platform allows users to report waste, sell recyclables, donate food, and raise queries related to waste management and environmental concerns.</p>
+                    <p>We reserve the right to modify, suspend, or discontinue any aspect of our Services at any time, including the availability of any features, without notice or liability.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>3. User Accounts</h2>
+                    <p>To access certain features of our Services, you will need to register for an account. You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete.</p>
+                    <p>You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer or device. You agree to accept responsibility for all activities that occur under your account.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>4. User Content</h2>
+                    <p>By submitting, posting, or displaying content on or through our Services ("User Content"), you grant TrashClick a worldwide, non-exclusive, royalty-free license to use, copy, reproduce, process, adapt, modify, publish, transmit, display, and distribute such content in any and all media or distribution methods.</p>
+                    <p>You represent and warrant that: (i) you own the User Content or have the right to use it and grant us the rights and license as provided in these Terms, and (ii) the posting of your User Content on or through our Services does not violate the privacy rights, publicity rights, copyrights, contract rights, or any other rights of any person.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>5. Prohibited Activities</h2>
+                    <p>You agree not to engage in any of the following prohibited activities:</p>
+                    <ul>
+                        <li>Violating any applicable laws or regulations;</li>
+                        <li>Impersonating any person or entity or falsely stating or otherwise misrepresenting your affiliation with a person or entity;</li>
+                        <li>Interfering with or disrupting the Services or servers or networks connected to the Services;</li>
+                        <li>Submitting false or misleading information in waste reports, recyclable listings, or food donation offers;</li>
+                        <li>Using the Services for any fraudulent or illegal purpose;</li>
+                        <li>Collecting or harvesting any information about other users without their consent;</li>
+                        <li>Creating multiple accounts for disruptive or abusive purposes.</li>
+                    </ul>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>6. Payment Terms</h2>
+                    <p>If you choose to sell recyclables through our platform, you agree to our payment processing terms. Payment for recyclables is subject to verification of the materials by the buyers.</p>
+                    <p>TrashClick may charge service fees for transactions facilitated through our platform. All fees are non-refundable unless required by law or stated otherwise in these Terms.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>7. Disclaimer of Warranties</h2>
+                    <p>OUR SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. TRASHCLICK EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+                    <p>TRASHCLICK MAKES NO WARRANTY THAT: (i) OUR SERVICES WILL MEET YOUR REQUIREMENTS, (ii) OUR SERVICES WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE, (iii) THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF OUR SERVICES WILL BE ACCURATE OR RELIABLE, OR (iv) THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION, OR OTHER MATERIAL PURCHASED OR OBTAINED BY YOU THROUGH OUR SERVICES WILL MEET YOUR EXPECTATIONS.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>8. Limitation of Liability</h2>
+                    <p>IN NO EVENT SHALL TRASHCLICK, ITS OFFICERS, DIRECTORS, EMPLOYEES, OR AGENTS, BE LIABLE TO YOU FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES WHATSOEVER RESULTING FROM ANY (i) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT, (ii) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND USE OF OUR SERVICES, (iii) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (iv) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM OUR SERVICES, (v) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY BE TRANSMITTED TO OR THROUGH OUR SERVICES BY ANY THIRD PARTY, AND/OR (vi) ANY ERRORS OR OMISSIONS IN ANY CONTENT OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF YOUR USE OF ANY CONTENT POSTED, EMAILED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SERVICES, WHETHER BASED ON WARRANTY, CONTRACT, TORT, OR ANY OTHER LEGAL THEORY, AND WHETHER OR NOT THE COMPANY IS ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>9. Indemnification</h2>
+                    <p>You agree to defend, indemnify, and hold harmless TrashClick, its officers, directors, employees, and agents, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees) arising from: (i) your use of and access to the Services; (ii) your violation of any term of these Terms; (iii) your violation of any third-party right, including without limitation any copyright, property, or privacy right; or (iv) any claim that your User Content caused damage to a third party.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>10. Termination</h2>
+                    <p>We may terminate or suspend your account and bar access to the Services immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms.</p>
+                    <p>If you wish to terminate your account, you may simply discontinue using the Services or contact us to request account deletion.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>11. Governing Law</h2>
+                    <p>These Terms shall be governed and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law provisions.</p>
+                    <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>12. Changes to Terms</h2>
+                    <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide notice of any significant changes by posting the new Terms on this page and/or sending you an email.</p>
+                    <p>By continuing to access or use our Services after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Services.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>13. Contact Us</h2>
+                    <p>If you have any questions about these Terms, please contact us at:</p>
+                    <p>Email: support@trashclick.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </section>
+                
+                <div class="terms-date">
+                    <p>Last updated: March 27, 2025</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p>Making waste management easier and more rewarding for everyone.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="leaderboard.html">Leaderboard</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="report-waste.html">Report Waste</a></li>
+                        <li><a href="sell-waste.html">Sell Waste</a></li>
+                        <li><a href="donate-food.html">Donate Food</a></li>
+                        <li><a href="raise-query.html">Raise Query</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TrashClick. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> for a cleaner planet</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="notification-toast">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <p id="notification-message"></p>
+        </div>
+        <button id="notification-close" class="notification-close">&times;</button>
+    </div>
+</body>
+</html>
+

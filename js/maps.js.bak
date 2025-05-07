@@ -1,0 +1,853 @@
+import { supabaseClient } from "./supabase.js"
+import { showNotification } from "./utils.js"
+
+// Global variables
+let map;
+let marker;
+let geocoder;
+let infoWindow;
+let autocomplete;
+
+// Make sure Google Maps API is available globally
+window.initGoogleMaps = function() {
+  console.log("Google Maps API loaded successfully.")
+  // After Google Maps is loaded, initialize any maps on the current page
+  document.dispatchEvent(new Event('googleMapsLoaded'));
+  
+  // Force initialization for report waste page
+  const isReportWastePage = window.location.pathname.includes("report-waste");
+  if (isReportWastePage) {
+    initializeReportWasteMap();
+  }
+}
+
+// Initialize map specifically for report waste page
+function initializeReportWasteMap() {
+  const mapElement = document.getElementById('map');
+  if (!mapElement) return;
+  
+  console.log("Initializing report waste map");
+  
+  try {
+    // Create map
+    map = new google.maps.Map(mapElement, {
+      center: { lat: 37.7749, lng: -122.4194 }, // Default center
+      zoom: 13,
+      mapTypeControl: false,
+      fullscreenControl: true,
+      streetViewControl: false,
+      zoomControl: true
+    });
+    
+    // Add marker
+    marker = new google.maps.Marker({
+      position: { lat: 37.7749, lng: -122.4194 },
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP
+    });
+    
+    // Initialize geocoder
+    geocoder = new google.maps.Geocoder();
+    
+    // Add click listener to map
+    map.addListener('click', function(event) {
+      marker.setPosition(event.latLng);
+      updateLocationFields(event.latLng);
+      updateAddressFromPosition(event.latLng);
+    });
+    
+    // Add drag end listener to marker
+    marker.addListener('dragend', function() {
+      const position = marker.getPosition();
+      updateLocationFields(position);
+      updateAddressFromPosition(position);
+    });
+    
+    // Initialize place autocomplete for search box
+    initPlaceAutocomplete();
+    
+    // Try to get user's current location
+    const currentLocationBtn = document.getElementById('current-location-btn');
+    if (currentLocationBtn) {
+      currentLocationBtn.addEventListener('click', getCurrentLocation);
+    }
+    
+    console.log("Report waste map initialized successfully");
+  } catch (error) {
+    console.error("Error initializing report waste map:", error);
+    showNotification("Error initializing map. Please refresh the page.", "error");
+  }
+}
+
+// Initialize Place Autocomplete for search
+function initPlaceAutocomplete() {
+  const searchInput = document.getElementById('waste-location');
+  if (!searchInput) return;
+  
+  try {
+    if (!window.google || !window.google.maps || !window.google.maps.places) {
+      console.error("Google Maps Places API not loaded");
+      return;
+    }
+    
+    autocomplete = new google.maps.places.Autocomplete(searchInput, {
+      types: ['geocode'],
+      fields: ['formatted_address', 'geometry', 'name']
+    });
+    
+    autocomplete.addListener('place_changed', function() {
+      const place = autocomplete.getPlace();
+      
+      if (!place.geometry || !place.geometry.location) {
+        showNotification("No location details available for this place", "error");
+        return;
+      }
+      
+      // Update map
+      map.setCenter(place.geometry.location);
+      map.setZoom(16);
+      
+      // Update marker
+      marker.setPosition(place.geometry.location);
+      
+      // Update form fields
+      updateLocationFields(place.geometry.location);
+      
+      // Update address display
+      const addressDisplay = document.getElementById('address-display');
+      const locationStatus = document.getElementById('location-status');
+      
+      if (addressDisplay) {
+        addressDisplay.textContent = place.formatted_address || place.name;
+        addressDisplay.classList.add('has-address');
+      }
+      
+      if (locationStatus) {
+        locationStatus.innerHTML = '<i class="fas fa-check-circle"></i> Location set successfully';
+        locationStatus.classList.add('success');
+      }
+    });
+    
+    // Handle search button click
+    const searchBtn = document.getElementById('search-location-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', function() {
+        if (searchInput.value.trim() !== '') {
+          // Trigger place_changed event by simulating Enter press
+          searchInput.focus();
+          const enterEvent = new KeyboardEvent('keydown', {
+            bubbles: true,
+            cancelable: true,
+            keyCode: 13
+          });
+          searchInput.dispatchEvent(enterEvent);
+        }
+      });
+    }
+    
+    console.log("Place autocomplete initialized");
+  } catch (error) {
+    console.error("Error initializing place autocomplete:", error);
+  }
+}
+
+// Get current location
+function getCurrentLocation() {
+  const locationStatus = document.getElementById('location-status');
+  
+  if (locationStatus) {
+    locationStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting your location...';
+    locationStatus.classList.remove('success', 'error');
+  }
+  
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      // Success callback
+      function(position) {
+        const userLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        
+        // Update map
+        map.setCenter(userLocation);
+        map.setZoom(16);
+        
+        // Update marker
+        marker.setPosition(userLocation);
+        
+        // Update form fields
+        updateLocationFields(userLocation);
+        
+        // Update address
+        updateAddressFromPosition(userLocation);
+        
+        // Show success notification
+        showNotification("Your location has been set", "success");
+      },
+      // Error callback
+      function(error) {
+        console.error("Error getting location:", error);
+        
+        let errorMessage = "Unable to get your location";
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = "Location access denied. Please enable location services.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = "Location information is unavailable.";
+            break;
+          case error.TIMEOUT:
+            errorMessage = "Location request timed out.";
+            break;
+        }
+        
+        showNotification(errorMessage, "error");
+        
+        if (locationStatus) {
+          locationStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + errorMessage;
+          locationStatus.classList.add('error');
+        }
+      }
+    );
+  } else {
+    const errorMessage = "Geolocation is not supported by this browser";
+    showNotification(errorMessage, "error");
+    
+    if (locationStatus) {
+      locationStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + errorMessage;
+      locationStatus.classList.add('error');
+    }
+  }
+}
+
+// Update location fields with position
+function updateLocationFields(position) {
+  try {
+    // Check if position is a Google Maps LatLng object or a basic object
+    const lat = typeof position.lat === 'function' ? position.lat() : position.lat;
+    const lng = typeof position.lng === 'function' ? position.lng() : position.lng;
+    
+    // Update the form fields
+    const latInput = document.getElementById('waste-latitude');
+    const lngInput = document.getElementById('waste-longitude');
+    
+    if (latInput && lngInput) {
+      latInput.value = lat;
+      lngInput.value = lng;
+      console.log("Location fields updated:", lat, lng);
+    } else {
+      console.warn("Latitude or longitude form fields not found");
+    }
+  } catch (error) {
+    console.error("Error updating location fields:", error);
+  }
+}
+
+// Update address from position
+function updateAddressFromPosition(position) {
+  if (!geocoder) {
+    if (window.google && window.google.maps && window.google.maps.Geocoder) {
+      geocoder = new google.maps.Geocoder();
+    } else {
+      console.error("Geocoder not available");
+      return;
+    }
+  }
+  
+  const addressDisplay = document.getElementById('address-display');
+  const locationStatus = document.getElementById('location-status');
+  
+  if (locationStatus) {
+    locationStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Getting address...';
+    locationStatus.classList.remove('success', 'error');
+  }
+  
+  // Convert position to appropriate format
+  const latLng = position instanceof google.maps.LatLng 
+    ? position 
+    : new google.maps.LatLng(position.lat, position.lng);
+  
+  geocoder.geocode({ location: latLng }, function(results, status) {
+    if (status === 'OK' && results[0]) {
+      const address = results[0].formatted_address;
+      
+      // Update address display
+      if (addressDisplay) {
+        addressDisplay.textContent = address;
+        addressDisplay.classList.add('has-address');
+      }
+      
+      // Update location status
+      if (locationStatus) {
+        locationStatus.innerHTML = '<i class="fas fa-check-circle"></i> Location set successfully';
+        locationStatus.classList.add('success');
+      }
+      
+      // Update search input
+      const searchInput = document.getElementById('waste-location');
+      if (searchInput) {
+        searchInput.value = address;
+      }
+      
+      console.log("Address updated:", address);
+    } else {
+      console.warn("Geocoder failed:", status);
+      
+      // Update address display
+      if (addressDisplay) {
+        addressDisplay.textContent = "Address could not be determined";
+        addressDisplay.classList.add('has-address');
+      }
+      
+      // Update location status
+      if (locationStatus) {
+        locationStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Coordinates set, but address could not be determined';
+        locationStatus.classList.add('warning');
+      }
+    }
+  });
+}
+
+// Initialize Google Maps
+export function initMap(mapElementId, options = {}) {
+  if (!mapElementId) {
+    console.error("No map element ID provided")
+    return null
+  }
+
+  const mapElement = document.getElementById(mapElementId)
+  if (!mapElement) {
+    console.error(`Map element with id '${mapElementId}' not found`)
+    return null
+  }
+
+  // Check if Google Maps API is loaded
+  if (!window.google || !window.google.maps) {
+    console.log("Google Maps API not loaded. Loading it now...")
+    loadGoogleMapsScript()
+    
+    // Listen for when the API is loaded
+    document.addEventListener('googleMapsLoaded', () => {
+      try {
+        const newMap = initMap(mapElementId, options)
+        // Store map reference on element for easy access
+        if (newMap && mapElement) {
+          mapElement.map = newMap
+        }
+      } catch (error) {
+        console.error("Error initializing map after API load:", error)
+        showNotification("Map initialization failed. Please refresh the page.", "error")
+      }
+    }, { once: true })
+    
+    return null
+  }
+
+  const defaultOptions = {
+    center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco
+    zoom: 13,
+    mapTypeControl: false,
+    fullscreenControl: true,
+    streetViewControl: false,
+    zoomControl: true,
+  }
+
+  const mapOptions = { ...defaultOptions, ...options }
+
+  try {
+    // Create a new map instance
+    map = new google.maps.Map(mapElement, mapOptions)
+
+    // Store map reference on element for easy access
+    mapElement.map = map
+
+    // Initialize geocoder if not already
+    if (!geocoder && window.google.maps.Geocoder) {
+      geocoder = new google.maps.Geocoder()
+    }
+
+    // Initialize info window if not already
+    if (!infoWindow && window.google.maps.InfoWindow) {
+      infoWindow = new google.maps.InfoWindow()
+    }
+
+    console.log("Map initialized successfully")
+    return map
+  } catch (error) {
+    console.error("Error initializing map:", error)
+    showNotification("Failed to initialize map. Please try again.", "error")
+    return null
+  }
+}
+
+// Helper function to load Google Maps Script with better error handling
+function loadGoogleMapsScript() {
+  if (document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]')) {
+    return // Script already loading or loaded
+  }
+  
+  // Make sure we have a notification toast element
+  ensureNotificationToastExists();
+  
+  const apiKey = "AIzaSyBZ0PY4287NmSFhQQgCdUVL0YiVIFpj7ac" // Use your actual API key
+  const script = document.createElement('script')
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initGoogleMaps`
+  script.async = true
+  script.defer = true
+  
+  script.onerror = function() {
+    console.error("Failed to load Google Maps API. Check your API key and network connection.")
+    showNotification("Failed to load Google Maps. Please check your internet connection and try refreshing the page.", "error")
+  }
+  
+  // Set a timeout to detect if the API takes too long to load
+  const timeoutId = setTimeout(() => {
+    if (!window.google || !window.google.maps) {
+      console.error("Google Maps API took too long to load")
+      showNotification("Google Maps is taking longer than expected to load. Please check your internet connection.", "warning")
+    }
+  }, 10000) // 10 seconds timeout
+  
+  // Clear the timeout when the API is loaded
+  window.initGoogleMaps = function() {
+    clearTimeout(timeoutId)
+    console.log("Google Maps API loaded successfully.")
+    document.dispatchEvent(new Event('googleMapsLoaded'))
+    
+    // Force initialization for report waste page
+    const isReportWastePage = window.location.pathname.includes("report-waste");
+    if (isReportWastePage) {
+      initializeReportWasteMap();
+    }
+  }
+  
+  document.head.appendChild(script)
+}
+
+// Ensure notification toast exists in DOM
+function ensureNotificationToastExists() {
+  if (!document.getElementById('notification-toast')) {
+    const toast = document.createElement('div')
+    toast.id = 'notification-toast'
+    toast.className = 'notification-toast'
+    toast.innerHTML = `
+      <div class="notification-content">
+        <span id="notification-message">Notification message</span>
+        <button id="notification-close" class="notification-close">&times;</button>
+      </div>
+    `
+    document.body.appendChild(toast)
+    
+    // Add event listener to close button
+    const closeBtn = toast.querySelector('#notification-close')
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        toast.classList.remove('show')
+      })
+    }
+  }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if we're on report waste page
+  const isReportWastePage = window.location.pathname.includes('report-waste');
+  if (isReportWastePage) {
+    // Try to initialize map directly if Google Maps is already loaded
+    if (window.google && window.google.maps) {
+      initializeReportWasteMap();
+    } else {
+      // Set up a listener for when Google Maps is loaded
+      document.addEventListener('googleMapsLoaded', function() {
+        initializeReportWasteMap();
+      });
+      
+      // Make sure the script is loaded
+      if (!document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]')) {
+        loadGoogleMapsScript();
+      }
+    }
+  }
+});
+
+// Add rest of your original code here...
+
+// Add a marker to the map
+export function addMarker(position, options = {}) {
+  if (!map) {
+    console.error("Map not initialized. Call initMap first.")
+    return null
+  }
+  
+  if (!window.google || !window.google.maps) {
+    console.error("Google Maps API not loaded")
+    return null
+  }
+
+  // Remove existing marker if requested
+  if (marker && options.replaceExisting !== false) {
+    marker.setMap(null)
+  }
+
+  const defaultOptions = {
+    position: position,
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+  }
+
+  const markerOptions = { ...defaultOptions, ...options }
+
+  try {
+    // Create the marker
+    const newMarker = new google.maps.Marker(markerOptions)
+    
+    // Make this the current marker if replacing
+    if (options.replaceExisting !== false) {
+      marker = newMarker
+    }
+
+    // Add drag event listener if marker is draggable
+    if (markerOptions.draggable) {
+      google.maps.event.addListener(newMarker, "dragend", () => {
+        const position = newMarker.getPosition()
+        if (options.onDragEnd && typeof options.onDragEnd === 'function') {
+          options.onDragEnd(position)
+        }
+      })
+    }
+
+    // Add click listener if provided
+    if (options.onClick && typeof options.onClick === 'function') {
+      google.maps.event.addListener(newMarker, "click", () => {
+        options.onClick(newMarker)
+      })
+    }
+
+    return newMarker
+  } catch (error) {
+    console.error("Error adding marker:", error)
+    return null
+  }
+}
+
+// Center the map on a specific position
+export function centerMap(position, zoom) {
+  if (!map) {
+    console.error("Map not initialized. Call initMap first.")
+    return
+  }
+
+  try {
+    map.setCenter(position)
+    if (zoom !== undefined) {
+      map.setZoom(zoom)
+    }
+  } catch (error) {
+    console.error("Error centering map:", error)
+  }
+}
+
+// Get the current position of the marker
+export function getMarkerPosition() {
+  if (!marker) {
+    console.error("Marker not initialized. Call addMarker first.")
+    return null
+  }
+
+  try {
+    return marker.getPosition().toJSON()
+  } catch (error) {
+    console.error("Error getting marker position:", error)
+    return null
+  }
+}
+
+// Update the position of an existing marker
+export function updateMarkerPosition(position) {
+  if (!marker) {
+    console.error("Marker not initialized. Call addMarker first.")
+    return
+  }
+
+  try {
+    marker.setPosition(position)
+  } catch (error) {
+    console.error("Error updating marker position:", error)
+  }
+}
+
+// Geocode an address to get its coordinates
+export async function geocodeAddress(address) {
+  if (!window.google || !window.google.maps || !window.google.maps.Geocoder) {
+    console.error("Google Maps Geocoder not available")
+    return null
+  }
+
+  if (!geocoder) {
+    geocoder = new google.maps.Geocoder()
+  }
+
+  try {
+    const { results, status } = await new Promise((resolve, reject) => {
+      geocoder.geocode({ address: address }, (results, status) => {
+        resolve({ results, status })
+      })
+    })
+
+    if (status === "OK" && results && results.length > 0) {
+      const location = results[0].geometry.location
+      return {
+        lat: location.lat(),
+        lng: location.lng(),
+        formattedAddress: results[0].formatted_address
+      }
+    } else {
+      console.error("Geocode failed:", status)
+      return null
+    }
+  } catch (error) {
+    console.error("Error in geocodeAddress:", error)
+    return null
+  }
+}
+
+// Reverse geocode coordinates to get an address
+export async function reverseGeocode(position) {
+  if (!window.google || !window.google.maps || !window.google.maps.Geocoder) {
+    console.error("Google Maps Geocoder not available")
+    return null
+  }
+
+  if (!geocoder) {
+    geocoder = new google.maps.Geocoder()
+  }
+
+  try {
+    // Ensure position is in the correct format
+    const latLng = position instanceof google.maps.LatLng
+      ? position
+      : new google.maps.LatLng(position.lat, position.lng)
+
+    const { results, status } = await new Promise((resolve, reject) => {
+      geocoder.geocode({ location: latLng }, (results, status) => {
+        resolve({ results, status })
+      })
+    })
+
+    if (status === "OK" && results && results.length > 0) {
+      return results[0].formatted_address
+    } else {
+      console.error("Reverse geocode failed:", status)
+      return null
+    }
+  } catch (error) {
+    console.error("Error in reverseGeocode:", error)
+    return null
+  }
+}
+
+// Get the current user's location
+export async function getCurrentLocation() {
+  if (!navigator.geolocation) {
+    throw new Error("Geolocation is not supported by this browser")
+  }
+
+  try {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      })
+    })
+
+    return {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    }
+  } catch (error) {
+    console.error("Error getting current location:", error)
+    throw error
+  }
+}
+
+// Initialize Google Places Autocomplete on an input field
+export function initAutocomplete(inputId, options = {}) {
+  if (!window.google || !window.google.maps || !window.google.maps.places || !window.google.maps.places.Autocomplete) {
+    console.error("Google Maps Places API not available")
+    return null
+  }
+
+  const input = document.getElementById(inputId)
+  if (!input) {
+    console.error(`Input element with id '${inputId}' not found`)
+    return null
+  }
+
+  const defaultOptions = {
+    types: ["geocode"],
+    componentRestrictions: {}, // No country restriction by default
+    fields: ["address_components", "geometry", "formatted_address"]
+  }
+
+  const autocompleteOptions = { ...defaultOptions, ...options }
+
+  try {
+    // Create autocomplete instance
+    const autocomplete = new google.maps.places.Autocomplete(input, autocompleteOptions)
+
+    // Add place changed listener if callback provided
+    if (options.onPlaceChanged && typeof options.onPlaceChanged === "function") {
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace()
+        options.onPlaceChanged(place)
+      })
+    }
+
+    return autocomplete
+  } catch (error) {
+    console.error("Error initializing autocomplete:", error)
+    return null
+  }
+}
+
+// Initialize a complete map picker with input and coordinates
+export function initMapPicker(mapContainerId, addressInputId, latInputId, lngInputId, options = {}) {
+  // Store references to DOM elements
+  const mapContainer = document.getElementById(mapContainerId)
+  const addressInput = document.getElementById(addressInputId)
+  const latInput = document.getElementById(latInputId)
+  const lngInput = document.getElementById(lngInputId)
+
+  // Validate required elements
+  if (!mapContainer || !addressInput || !latInput || !lngInput) {
+    console.error("Required DOM elements not found for map picker")
+    return null
+  }
+
+  // Default options
+  const defaultOptions = {
+    center: { lat: 37.7749, lng: -122.4194 }, // Default to San Francisco
+    zoom: 12,
+    useCurrentLocation: false
+  }
+
+  const pickerOptions = { ...defaultOptions, ...options }
+
+  // Initialize map
+  const mapInstance = initMap(mapContainerId, pickerOptions)
+  if (!mapInstance) {
+    // If map fails to initialize, wait for Google Maps to load then try again
+    document.addEventListener("googleMapsLoaded", () => {
+      initMapPicker(mapContainerId, addressInputId, latInputId, lngInputId, options)
+    }, { once: true })
+    return null
+  }
+
+  // Add marker
+  let pickerMarker = addMarker(pickerOptions.center, {
+    draggable: true,
+    onDragEnd: (position) => {
+      updateFormWithPosition(position, addressInput, latInput, lngInput)
+    }
+  })
+
+  // Set initial values in form
+  updateFormWithPosition(pickerOptions.center, addressInput, latInput, lngInput)
+
+  // Initialize autocomplete on address input
+  const autocompleteInstance = initAutocomplete(addressInputId, {
+    onPlaceChanged: (place) => {
+      if (!place.geometry) {
+        console.error("Place selected has no geometry")
+        return
+      }
+
+      // Update map and marker
+      map.setCenter(place.geometry.location)
+      updateMarkerPosition(place.geometry.location)
+
+      // Update form
+      updateFormWithPosition(place.geometry.location, addressInput, latInput, lngInput)
+    }
+  })
+
+  // Add click listener to map
+  mapInstance.addListener("click", (event) => {
+    updateMarkerPosition(event.latLng)
+    updateFormWithPosition(event.latLng, addressInput, latInput, lngInput)
+  })
+
+  // Use current location if requested
+  if (pickerOptions.useCurrentLocation) {
+    getCurrentLocation()
+      .then((position) => {
+        centerMap(position, pickerOptions.zoom)
+        updateMarkerPosition(position)
+        updateFormWithPosition(position, addressInput, latInput, lngInput)
+      })
+      .catch((error) => {
+        console.warn("Error getting current location:", error)
+        // Fall back to default center
+      })
+  }
+
+  // Helper function to update form with position
+  function updateFormWithPosition(position, addressInput, latInput, lngInput) {
+    // Update lat/lng inputs
+    const lat = typeof position.lat === "function" ? position.lat() : position.lat
+    const lng = typeof position.lng === "function" ? position.lng() : position.lng
+    
+    latInput.value = lat
+    lngInput.value = lng
+
+    // Update address input via reverse geocoding
+    reverseGeocode(position)
+      .then((address) => {
+        if (address) {
+          addressInput.value = address
+        }
+      })
+      .catch((error) => {
+        console.error("Error reverse geocoding:", error)
+      })
+  }
+
+  // Return an object with control methods
+  return {
+    map: mapInstance,
+    marker: pickerMarker,
+    autocomplete: autocompleteInstance,
+    
+    getPosition: () => {
+      return {
+        lat: parseFloat(latInput.value),
+        lng: parseFloat(lngInput.value),
+        address: addressInput.value
+      }
+    },
+    
+    setPosition: (position) => {
+      centerMap(position)
+      updateMarkerPosition(position)
+      updateFormWithPosition(position, addressInput, latInput, lngInput)
+    }
+  }
+}
+
+export default {
+  initMap,
+  addMarker,
+  centerMap,
+  getMarkerPosition,
+  updateMarkerPosition,
+  geocodeAddress,
+  reverseGeocode,
+  getCurrentLocation,
+  initAutocomplete,
+  initMapPicker
+}
+

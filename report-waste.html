@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Waste | TrashClick</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/report-waste.css">
+    
+    <!-- Global initGoogleMaps function -->
+    <script>
+        window.initGoogleMaps = function() {
+            console.log("Google Maps API loaded successfully from global scope.");
+            document.dispatchEvent(new Event('googleMapsLoaded'));
+        };
+    </script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ0PY4287NmSFhQQgCdUVL0YiVIFpj7ac&libraries=places&callback=initGoogleMaps" async defer></script>
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/utils.js" type="module"></script>
+    <script src="js/file-upload.js" type="module"></script>
+    <script src="js/maps.js" type="module"></script>
+    <script src="js/report-waste.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-recycle"></i>
+                <span>TrashClick</span>
+            </a>
+
+            <!-- Main Navigation -->
+            <nav class="navbar-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="report-waste.html" class="active"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                    <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                    <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                    <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Right Side Menu -->
+            <div class="navbar-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown notifications-dropdown">
+                    <button class="dropdown-toggle" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">
+                            <h3>Notifications</h3>
+                            <button class="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="notification-list">
+                            <li class="notification-item unread">
+                                <div class="notification-icon green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Your waste report has been verified</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">You earned 50 points for your contribution!</p>
+                                    <p class="notification-time">Yesterday</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon amber">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Community cleanup event this weekend</p>
+                                    <p class="notification-time">3 days ago</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all">View all notifications</a>
+                    </div>
+                </div>
+                
+                <!-- User Menu -->
+                <div class="dropdown user-dropdown">
+                    <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                        <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                        <span class="user-name">John Doe</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                </div>
+            </div>
+            
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="report-waste.html" class="active"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="theme-toggle mobile" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="mobile-profile">
+                    <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Report Waste Content -->
+            <div class="report-waste-container">
+        <div class="page-header">
+            <h1>Report Waste</h1>
+                    <p>Help keep our environment clean by reporting waste in your area</p>
+                </div>
+                
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="progress-step active">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Details</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Location</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Photos</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Review</div>
+                    </div>
+        </div>
+        
+                <div class="report-content">
+            <div class="report-form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Waste Details</h2>
+                            </div>
+                            <div class="card-body">
+                                <form id="report-waste-form">
+                    <div class="form-group">
+                                        <label for="waste-type">Waste Type <span class="required">*</span></label>
+                                        <select id="waste-type" required>
+                                            <option value="" disabled selected>Select type of waste</option>
+                                            <option value="plastic">Plastic</option>
+                                            <option value="paper">Paper</option>
+                                            <option value="glass">Glass</option>
+                                            <option value="metal">Metal</option>
+                                            <option value="electronic">Electronic</option>
+                                            <option value="organic">Organic</option>
+                                            <option value="hazardous">Hazardous</option>
+                            <option value="construction">Construction Debris</option>
+                                            <option value="medical">Medical Waste</option>
+                                            <option value="mixed">Mixed Waste</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                                        <label for="waste-quantity">Estimated Quantity (kg) <span class="required">*</span></label>
+                                        <input type="number" id="waste-quantity" min="0.1" step="0.1" placeholder="Enter estimated weight" required>
+                                    </div>
+                                    
+                                    <!-- Urgency Level -->
+                                    <div class="form-group">
+                                        <label>Urgency Level <span class="required">*</span></label>
+                                        <div class="urgency-options">
+                                            <div class="urgency-option">
+                                                <input type="radio" id="urgency-low" name="urgency" value="low">
+                                                <label for="urgency-low">
+                                                    <i class="fas fa-leaf"></i>
+                                                    <span>Low</span>
+                                                </label>
+                                            </div>
+                                            <div class="urgency-option">
+                                                <input type="radio" id="urgency-medium" name="urgency" value="medium">
+                                                <label for="urgency-medium">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    <span>Medium</span>
+                                                </label>
+                                            </div>
+                                            <div class="urgency-option">
+                                                <input type="radio" id="urgency-high" name="urgency" value="high">
+                                                <label for="urgency-high">
+                                                    <i class="fas fa-radiation"></i>
+                                                    <span>High</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                                        <label for="waste-description">Description</label>
+                                        <textarea id="waste-description" rows="3" placeholder="Provide additional details about the waste"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                                        <label for="waste-image">Upload Image</label>
+                                        <div id="file-upload-container" class="image-upload-container">
+                                            <div id="preview-images" class="image-upload-preview">
+                                                <!-- Preview images will be shown here -->
+                                            </div>
+                                            <div class="image-upload-action">
+                                                <label for="waste-photos" class="upload-label">
+                                                    <i class="fas fa-camera"></i>
+                                                    <span>Take Photo or Upload</span>
+                                                </label>
+                                                <input type="file" id="waste-photos" accept="image/*" capture="environment" multiple>
+                                                <p class="upload-note">Max size: 5MB (JPEG, PNG, GIF)</p>
+                                            </div>
+                        </div>
+                    </div>
+                                    
+                                    <div class="form-divider"></div>
+                    
+                    <div class="form-group">
+                                        <label>Location <span class="required">*</span></label>
+                                        <p class="location-status" id="location-status">Please set the waste location on the map</p>
+                                        
+                                        <div class="location-search">
+                                            <input type="text" id="waste-location" placeholder="Search for an address" class="location-input">
+                                            <button type="button" id="search-location-btn" class="btn btn-secondary">
+                                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                                        <button type="button" id="current-location-btn" class="btn btn-secondary btn-with-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>Use My Current Location</span>
+                                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                                        <label for="waste-landmark">Nearby Landmark (Optional)</label>
+                                        <input type="text" id="waste-landmark" placeholder="e.g., Near City Park, Behind School, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                                        <p class="address-display" id="address-display">No address selected</p>
+                                        
+                                        <!-- Hidden inputs for location coordinates -->
+                                        <input type="hidden" id="waste-latitude" name="latitude">
+                                        <input type="hidden" id="waste-longitude" name="longitude">
+                    </div>
+                    
+                    <div class="form-actions">
+                                        <button type="submit" id="submit-report-btn" class="btn btn-primary btn-with-icon">
+                                            <i class="fas fa-paper-plane"></i>
+                                            <span>Submit Report</span>
+                                        </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        
+                    <div class="map-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Select Location on Map</h2>
+                </div>
+                            <div class="card-body map-body">
+                                <!-- Fixed map container with explicit height -->
+                                <div id="map" style="width: 100%; height: 400px; min-height: 400px; border-radius: var(--radius-md);"></div>
+                                <div class="map-note">
+                                    <p><i class="fas fa-info-circle"></i> You can drag the marker to pinpoint the exact waste location</p>
+                </div>
+            </div>
+        </div>
+        
+                        <div class="report-benefits card">
+                            <div class="card-header">
+                                <h2>Why Report Waste?</h2>
+                </div>
+                            <div class="card-body">
+                                <ul class="benefits-list">
+                                    <li>
+                                        <i class="fas fa-star"></i>
+                                        <span>Earn points and badges for your contributions</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-leaf"></i>
+                                        <span>Help create a cleaner, healthier environment</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-users"></i>
+                                        <span>Engage with your community to drive positive change</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-globe"></i>
+                                        <span>Be part of the global solution to waste management</span>
+                                    </li>
+                                </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p class="footer-desc">Smart waste management platform helping communities create a cleaner, more sustainable future through technology and cooperation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                    <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="report-waste.html">Report Waste</a></li>
+                            <li><a href="sell-waste.html">Sell Waste</a></li>
+                            <li><a href="donate-food.html">Donate Food</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="guidelines.html">Guidelines</a></li>
+                            <li><a href="support.html">Support Center</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                    </ul>
+                </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="cookies.html">Cookie Policy</a></li>
+                            <li><a href="data-processing.html">Data Processing</a></li>
+                            <li><a href="compliance.html">Compliance</a></li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-download">
+                    <a href="#" class="download-btn"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="download-btn"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="toast"></div>
+</body>
+</html>
+

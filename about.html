@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+            </div>
+            
+            <nav class="navbar-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Services</a>
+                        <div class="dropdown-menu">
+                            <a href="report-waste.html">Report Waste</a>
+                            <a href="sell-waste.html">Sell Waste</a>
+                            <a href="donate-food.html">Donate Food</a>
+                            <a href="raise-query.html">Raise Query</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="navbar-actions auth-links">
+                <div class="header-actions">
+                    <div class="theme-toggle-wrapper">
+                        <span class="theme-icon"><i class="fas fa-sun"></i></span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                    </div>
+                    
+                    <div class="notification-dropdown">
+                        <button class="btn btn-icon" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                    </div>
+                    
+                    <div class="user-dropdown" id="user-dropdown">
+                        <button class="user-dropdown-toggle">
+                            <img src="img/default-avatar.jpg" alt="User Avatar" class="user-avatar">
+                            <span class="user-name">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown-menu">
+                            <a href="dashboard.html">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                            <a href="profile.html">
+                                <i class="fas fa-user"></i>
+                                Profile
+                            </a>
+                            <a href="rewards.html">
+                                <i class="fas fa-trophy"></i>
+                                Rewards
+                            </a>
+                            <a href="admin/index.html" class="admin-link" style="display: none;">
+                                <i class="fas fa-user-shield"></i>
+                                Admin Panel
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-ghost">Login</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <div class="container">
+                <a href="report-waste.html">Report Waste</a>
+                <a href="sell-waste.html">Sell Waste</a>
+                <a href="donate-food.html">Donate Food</a>
+                <a href="raise-query.html">Raise Query</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="mobile-actions auth-links">
+                    <a href="login.html" class="btn btn-ghost-mobile">Login</a>
+                    <a href="register.html" class="btn btn-primary-mobile">Register</a>
+                </div>
+                <div class="mobile-actions user-menu" style="display: none;">
+                    <a href="dashboard.html" class="btn btn-ghost-mobile">Dashboard</a>
+                    <a href="profile.html" class="btn btn-ghost-mobile">Profile</a>
+                    <a href="rewards.html" class="btn btn-ghost-mobile">Rewards</a>
+                    <a href="admin/index.html" class="btn btn-ghost-mobile admin-link" style="display: none;">Admin Panel</a>
+                    <a href="#" id="mobile-logout-btn" class="btn btn-primary-mobile">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="container">
+                <div class="about-hero-content">
+                    <h1>About TrashClick</h1>
+                    <p>Transforming waste management through community engagement and technology</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <div class="mission-content">
+                    <div class="mission-text">
+                        <h2>Our Mission</h2>
+                        <p>At TrashClick, our mission is to create a cleaner, greener future by revolutionizing how communities manage waste. We believe that with the right tools and incentives, everyone can contribute to solving the global waste crisis.</p>
+                        <p>We aim to:</p>
+                        <ul>
+                            <li>Empower citizens to report waste issues in their communities</li>
+                            <li>Connect individuals with recycling centers to sell recyclable waste</li>
+                            <li>Reduce food waste by facilitating food donations to those in need</li>
+                            <li>Gamify waste management through points, badges, and community recognition</li>
+                            <li>Provide valuable environmental impact data to local authorities</li>
+                        </ul>
+                    </div>
+                    <div class="mission-image">
+                        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Waste Cleanup">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Story Section -->
+        <section class="story-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Story</h2>
+                    <p>How TrashClick came to be and our journey so far</p>
+                </div>
+                
+                <div class="story-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>The Idea</h3>
+                            <p class="timeline-date">December 2024</p>
+                            <p>TrashClick began as a simple idea during a local community cleanup. Our founders noticed that waste management was a global problem that lacked efficient technological solutions. They envisioned a platform that would make it easy for citizens to report waste, connect with recycling centers, and track their environmental impact.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Launch</h3>
+                            <p class="timeline-date">upcoming</p>
+                            <p>After months of development and testing, we launched our first pilot program in 5 cities. The response was overwhelming, with thousands of waste reports and hundreds of connections made between citizens and recycling centers in the first month alone.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Growth</h3>
+                            <p class="timeline-date">upcoming</p>
+                            <p>By the beginning of 2022, TrashClick had expanded to over 50 cities, partnered with 20+ recycling companies, and helped divert over 100,000 kg of waste from landfills. Our community grew to over 50,000 active users, all working together to make their communities cleaner.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Recognition</h3>
+                            <p class="timeline-date">upcoming</p>
+                            <p>TrashClick was recognized as one of the most innovative environmental startups, winning the "Green Innovation Award" and securing partnerships with major environmental organizations. This recognition helped us expand our impact globally.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>Today</h3>
+                            <p class="timeline-date">upcoming</p>
+                            <p>Today, TrashClick operates in over 100 cities across 25 countries, with a community of more than 500,000 users. We've helped divert millions of kilograms of waste from landfills, connected thousands of food donations to those in need, and created a global movement of environmental stewards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Meet Our Team</h2>
+                    <p>The passionate people behind TrashClick</p>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="img/default-avatar.jpg" alt="Priyanshu kumar">
+                        </div>
+                        <h3>Priyanshu kumar</h3>
+                        <p class="team-role">Founder</p>
+                        <p>Environmental scientist turned entrepreneur with a passion for sustainable solutions.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="img" alt="Ansh Gandhi">
+                        </div>
+                        <h3>Ansh Gandhi</h3>
+                        <p class="team-role">Co-Founder</p>
+                        <p></p>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="img/default-avatar.jpg" alt="Avisake">
+                        </div>
+                        <h3>Avishake</h3>
+                        <p class="team-role">Head of Operations</p>
+                        <p>Logistics expert with experience managing waste management systems globally.</p>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="img" alt="karan">
+                        </div>
+                        <h3>Karan</h3>
+                        <p class="team-role">Head of Partnerships</p>
+                        <p></p>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="img" alt="Monu">
+                        </div>
+                        <h3>Monu</h3>
+                        <p class="team-role">Head of Partnerships</p>
+                        <p></p>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Values Section -->
+        <section class="values-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Values</h2>
+                    <p>The core principles that guide everything we do</p>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Environmental Impact</h3>
+                        <p>We believe that every action matters when it comes to protecting our planet. We strive to make measurable, positive environmental impact through our platform and operations.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community Empowerment</h3>
+                        <p>We believe in empowering communities to take action on local environmental issues. By providing tools and incentives, we help citizens become agents of positive change.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>We embrace technological innovation to solve environmental challenges. We're constantly exploring new ways to make waste management more efficient, accessible, and engaging.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Collaboration</h3>
+                        <p>We believe that solving environmental issues requires collaboration across sectors. We work closely with governments, businesses, nonprofits, and citizens to create holistic solutions.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Data-Driven Approach</h3>
+                        <p>We use data to drive decisions and measure impact. By collecting and analyzing waste management data, we can identify trends, optimize solutions, and demonstrate results.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Equity & Inclusion</h3>
+                        <p>We believe that everyone should have access to clean environments and waste management solutions. We design our platform to be accessible and beneficial to diverse communities worldwide.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Impact Section -->
+        <section class="impact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Impact</h2>
+                    <p>The difference we're making together</p>
+                </div>
+                
+                <div class="impact-stats">
+                    <div class="impact-stat">
+                        <div class="stat-number" id="waste-reported">5.2M</div>
+                        <div class="stat-label">kg of waste reported</div>
+                    </div>
+                    
+                    <div class="impact-stat">
+                        <div class="stat-number" id="waste-recycled">3.8M</div>
+                        <div class="stat-label">kg of waste recycled</div>
+                    </div>
+                    
+                    <div class="impact-stat">
+                        <div class="stat-number" id="food-donated">250K</div>
+                        <div class="stat-label">meals donated</div>
+                    </div>
+                    
+                    <div class="impact-stat">
+                        <div class="stat-number" id="co2-reduced">1.2M</div>
+                        <div class="stat-label">kg of CO2 reduced</div>
+                    </div>
+                </div>
+                
+                <div class="impact-map">
+                    <h3>Where We Work</h3>
+                    <div class="map-container">
+                        <img src="https://via.placeholder.com/1200x600/f8f9fa/cccccc?text=Impact+Map" alt="Map showing TrashClick's global impact">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Partners Section -->
+        <section class="partners-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Partners</h2>
+                    <p>The organizations we work with to maximize our impact</p>
+                </div>
+                
+                <div class="partners-grid">
+                    <div class="partner-logo">
+                        <img src="https://via.placeholder.com/200x100/f8f9fa/333333?text=Partner+1" alt="Partner Logo">
+                    </div>
+                    
+                    <div class="partner-logo">
+                        <img src="https://via.placeholder.com/200x100/f8f9fa/333333?text=Partner+2" alt="Partner Logo">
+                    </div>
+                    
+                    <div class="partner-logo">
+                        <img src="https://via.placeholder.com/200x100/f8f9fa/333333?text=Partner+3" alt="Partner Logo">
+                    </div>
+                    
+                    <div class="partner-logo">
+                        <img src="https://via.placeholder.com/200x100/f8f9fa/333333?text=Partner+4" alt="Partner Logo">
+                    </div>
+                    
+                    <div class="partner-logo">
+                        <img src="https://via.placeholder.com/200x100/f8f9fa/333333?text=Partner+5" alt="Partner Logo">
+                    </div>
+                    
+                    <div class="partner-logo">
+                        <img src="https://via.placeholder.com/200x100/f8f9fa/333333?text=Partner+6" alt="Partner Logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Join Us Section -->
+        <section class="join-section">
+            <div class="container">
+                <div class="join-content">
+                    <h2>Join Our Mission</h2>
+                    <p>Be part of the solution and help create cleaner communities around the world.</p>
+                    <div class="join-buttons">
+                        <a href="register.html" class="btn btn-primary">Sign Up</a>
+                        <a href="contact.html" class="btn btn-ghost">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p>Transforming waste management for a cleaner, greener future.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Eco Street, Green City, 10001</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@trashclick.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and eco-tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> TrashClick. All rights reserved.</p>
+                <div class="footer-links-small">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize theme
+            theme.init();
+            
+            // Initialize authentication status
+            auth.onAuthStateChanged(user => {
+                const authLinks = document.querySelectorAll('.auth-links');
+                
+                authLinks.forEach(element => {
+                    if (user) {
+                        element.querySelector('.auth-buttons').style.display = 'none';
+                        element.querySelector('.header-actions').style.display = 'flex';
+                        element.querySelector('.user-name').textContent = user.email.split('@')[0];
+                        
+                        // Check if user is admin
+                        auth.isAdmin(user.id).then(isAdmin => {
+                            if (isAdmin) {
+                                document.querySelectorAll('.admin-link').forEach(link => {
+                                    link.style.display = 'block';
+                                });
+                            }
+                        });
+                        
+                        // Show user menu in mobile view
+                        document.querySelector('.mobile-actions.user-menu').style.display = 'block';
+                        document.querySelector('.mobile-actions.auth-links').style.display = 'none';
+                    } else {
+                        element.querySelector('.auth-buttons').style.display = 'flex';
+                        element.querySelector('.header-actions').style.display = 'none';
+                        
+                        // Hide user menu in mobile view
+                        document.querySelector('.mobile-actions.user-menu').style.display = 'none';
+                        document.querySelector('.mobile-actions.auth-links').style.display = 'block';
+                    }
+                });
+            });
+            
+            // Logout functionality
+            document.querySelectorAll('#logout-btn, #mobile-logout-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    try {
+                        await auth.signOut();
+                        window.location.href = 'index.html';
+                    } catch (error) {
+                        console.error('Error signing out:', error);
+                    }
+                });
+            });
+            
+            // Mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                mobileMenuToggle.classList.toggle('active');
+            });
+            
+            // Animate impact numbers
+            animateNumbers();
+        });
+        
+        // Animate impact numbers
+        function animateNumbers() {
+            const wasteReported = document.getElementById('waste-reported');
+            const wasteRecycled = document.getElementById('waste-recycled');
+            const foodDonated = document.getElementById('food-donated');
+            const co2Reduced = document.getElementById('co2-reduced');
+            
+            const targetValues = {
+                'waste-reported': 5200000,
+                'waste-recycled': 3800000,
+                'food-donated': 250000,
+                'co2-reduced': 1200000
+            };
+            
+            const formatValue = (value) => {
+                if (value >= 1000000) {
+                    return `${(value / 1000000).toFixed(1)}M`;
+                } else if (value >= 1000) {
+                    return `${(value / 1000).toFixed(0)}K`;
+                }
+                return value;
+            };
+            
+            const animateStat = (element, targetValue) => {
+                const duration = 2000; // Animation duration in milliseconds
+                const frameDuration = 1000 / 60; // Assuming 60fps
+                const totalFrames = Math.round(duration / frameDuration);
+                let frame = 0;
+                const initialValue = 0;
+                
+                const animate = () => {
+                    frame++;
+                    const progress = frame / totalFrames;
+                    const currentValue = Math.round(initialValue + progress * (targetValue - initialValue));
+                    
+                    element.textContent = formatValue(currentValue);
+                    
+                    if (frame < totalFrames) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                animate();
+            };
+            
+            // Create an Intersection Observer to start animation when stats section is visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Start animation for each stat
+                        Object.keys(targetValues).forEach(key => {
+                            animateStat(document.getElementById(key), targetValues[key]);
+                        });
+                        
+                        // Disconnect observer after starting animation
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe the stats section
+            observer.observe(document.querySelector('.impact-stats'));
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global initGoogleMaps function -->
+    <script>
+        window.initGoogleMaps = function() {
+            console.log("Google Maps API loaded successfully from global scope.");
+            document.dispatchEvent(new Event('googleMapsLoaded'));
+        };
+    </script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ0PY4287NmSFhQQgCdUVL0YiVIFpj7ac&libraries=places&callback=initGoogleMaps" async defer></script>
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/maps.js" type="module"></script>
+    <script src="js/contact.js" type="module"></script>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+
+            <!-- Main Navigation -->
+            <nav class="navbar-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                    <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                    <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                    <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+
+            <!-- Right Side Menu -->
+            <div class="navbar-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown notifications-dropdown">
+                    <button class="dropdown-toggle" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">
+                            <h3>Notifications</h3>
+                            <button class="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="notification-list">
+                            <li class="notification-item unread">
+                                <div class="notification-icon green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Your message has been sent!</p>
+                                    <p class="notification-time">Just now</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">You earned 50 points for your contribution!</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon amber">
+                                    <i class="fas fa-star"></i>
+                    </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Community cleanup event this weekend</p>
+                                    <p class="notification-time">Yesterday</p>
+                    </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all">View all notifications</a>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown user-dropdown">
+                    <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                        <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                        <span class="user-name">John Doe</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="theme-toggle mobile" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="mobile-profile">
+                    <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>Get in touch with our team for any questions, feedback, or support needs</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-paper-plane"></i> Send Us a Message</h2>
+                            </div>
+                            <div class="card-body">
+                                <form id="contact-form">
+                                    <div class="form-group">
+                                        <label for="name">Full Name</label>
+                                        <input type="text" id="name" placeholder="Enter your name" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="email">Email Address</label>
+                                        <input type="email" id="email" placeholder="Enter your email" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="subject">Subject</label>
+                                        <select id="subject" required>
+                                            <option value="" disabled selected>Select a subject</option>
+                                            <option value="general">General Inquiry</option>
+                                            <option value="report">Report Issue</option>
+                                            <option value="suggestion">Suggestion</option>
+                                            <option value="partnership">Partnership Opportunity</option>
+                                            <option value="support">Technical Support</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        <textarea id="message" rows="6" placeholder="Type your message here..." required></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="privacy-consent" required>
+                                            <label for="privacy-consent">I consent to TrashClick processing my data as per the <a href="privacy.html">Privacy Policy</a>.</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="contact-info-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-info-circle"></i> Contact Information</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="contact-info">
+                                    <div class="contact-item">
+                                        <div class="contact-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="contact-details">
+                                            <h3>Our Location</h3>
+                                            <p>123 Green Street, Eco City, 10001</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                                        <div class="contact-details">
+                                            <h3>Phone</h3>
+                                            <p>+1 (555) 123-4567</p>
+                                            <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+                                        </div>
+                    </div>
+                                    
+                                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                                        <div class="contact-details">
+                                            <h3>Email</h3>
+                                            <p>info@trashclick.com</p>
+                                            <p>support@trashclick.com</p>
+                                        </div>
+                    </div>
+                                    
+                                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                                        <div class="contact-details">
+                        <h3>Social Media</h3>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card map-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-map"></i> Find Us</h2>
+                            </div>
+                            <div class="card-body">
+                                <div id="map" class="contact-map"></div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Find quick answers to common questions</p>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I report waste in my area?</h3>
+                            <button class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can report waste by navigating to the "Report Waste" page, filling out the form with details about the waste location, type, and quantity, and submitting it along with optional photos. Our team will verify the report and coordinate with local authorities for cleanup.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I sell my recyclable materials?</h3>
+                            <button class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To sell recyclable materials, go to the "Sell Waste" page and create a listing with details about your recyclables, including type, quantity, and condition. You can set your own price or accept offers from recyclers in your area. TrashClick facilitates the connection, but the transaction is between you and the buyer.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I earn points on TrashClick?</h3>
+                            <button class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can earn points by reporting waste, selling recyclables, donating food, participating in community cleanup events, and inviting friends to join the platform. Points can be redeemed for rewards, discounts with partner businesses, or donated to environmental causes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How can I join a community cleanup event?</h3>
+                            <button class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Community cleanup events are listed on the "Community" page. You can browse upcoming events in your area, view details about each event, and register to participate. You can also create your own event and invite others to join.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p class="footer-desc">Smart waste management platform helping communities create a cleaner, more sustainable future through technology and cooperation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                    <h3>Quick Links</h3>
+                        <ul>
+                        <li><a href="index.html">Home</a></li>
+                            <li><a href="report-waste.html">Report Waste</a></li>
+                            <li><a href="sell-waste.html">Sell Waste</a></li>
+                            <li><a href="donate-food.html">Donate Food</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                        <li><a href="about.html">About Us</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="guidelines.html">Guidelines</a></li>
+                            <li><a href="support.html">Support Center</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                    </ul>
+                </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="cookies.html">Cookie Policy</a></li>
+                            <li><a href="data-processing.html">Data Processing</a></li>
+                            <li><a href="compliance.html">Compliance</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-download">
+                    <a href="#" class="download-btn"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="download-btn"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Message Sent Successfully!</h2>
+                <p>Thank you for contacting us. We have received your message and will get back to you shortly.</p>
+                <button class="btn btn-primary modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="toast"></div>
+</body>
+</html>
+

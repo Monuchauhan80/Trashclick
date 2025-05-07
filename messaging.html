@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging | TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/community.css">
+    <link rel="stylesheet" href="css/messaging.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/messaging.js" type="module"></script>
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-recycle"></i>
+                <span>TrashClick</span>
+            </a>
+
+            <!-- Main Navigation -->
+            <nav class="navbar-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                    <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                    <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                    <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="messaging.html" class="active"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Right Side Menu -->
+            <div class="navbar-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown notifications-dropdown">
+                    <button class="dropdown-toggle" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">
+                            <h3>Notifications</h3>
+                            <button class="mark-all-read">Mark all as read</button>
+                        </div>
+                        <ul class="notification-list">
+                            <li class="notification-item unread">
+                                <div class="notification-icon green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Your waste report was accepted</p>
+                                    <p class="notification-time">Just now</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">You earned 50 points for your report</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon amber">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">You earned a new badge!</p>
+                                    <p class="notification-time">Yesterday</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a href="#" class="view-all">View all notifications</a>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown user-dropdown">
+                    <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                        <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                        <span class="user-name">John Doe</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                <li><a href="donate-food.html"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="messaging.html" class="active"><i class="fas fa-envelope"></i> Messages</a></li>
+                <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="theme-toggle mobile" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="mobile-profile">
+                    <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="messaging-header">
+            <div class="container">
+                <h1>Messages</h1>
+                <p>Connect with other environmentalists in the community</p>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="messaging-layout">
+                <!-- Contacts Sidebar -->
+                <div class="contacts-container">
+                    <div class="contacts-header">
+                        <h3>Conversations</h3>
+                        <button class="new-message-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="search-contacts">
+                        <input type="text" placeholder="Search contacts...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="contacts-list">
+                        <!-- Contacts will be loaded dynamically by messaging.js -->
+                    </div>
+                </div>
+                
+                <!-- Messages Container -->
+                <div class="messages-container">
+                    <div class="chat-header">
+                        <!-- Chat header will be populated by messaging.js -->
+                    </div>
+                    
+                    <div class="messages-list">
+                        <!-- Messages will be loaded dynamically by messaging.js -->
+                    </div>
+                    
+                    <div class="message-composer">
+                        <button class="emoji-btn">
+                            <i class="far fa-smile"></i>
+                        </button>
+                        <button class="file-btn">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <input type="file" id="message-file" style="display: none;">
+                        <div class="input-wrapper">
+                            <input type="text" id="message-input" placeholder="Type a message...">
+                        </div>
+                        <button class="send-message-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Empty State (shown when no chat is selected) -->
+                <div class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Your messages</h3>
+                    <p>Select a conversation or start a new one</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notification Toast -->
+        <div id="notification-toast" class="notification-toast">
+            <div class="notification-content">
+                <span id="notification-message"></span>
+                <button id="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p class="footer-desc">Smart waste management platform helping communities create a cleaner, more sustainable future through technology and cooperation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="report-waste.html">Report Waste</a></li>
+                            <li><a href="sell-waste.html">Sell Waste</a></li>
+                            <li><a href="donate-food.html">Donate Food</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="guidelines.html">Guidelines</a></li>
+                            <li><a href="support.html">Support Center</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="cookies.html">Cookie Policy</a></li>
+                            <li><a href="data-processing.html">Data Processing</a></li>
+                            <li><a href="compliance.html">Compliance</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-download">
+                    <a href="#" class="download-btn"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="download-btn"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

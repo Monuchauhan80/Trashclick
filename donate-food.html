@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food | TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/donate-food.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Global initGoogleMaps function -->
+    <script>
+        window.initGoogleMaps = function() {
+            console.log("Google Maps API loaded successfully from global scope.");
+            document.dispatchEvent(new Event('googleMapsLoaded'));
+        };
+    </script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ0PY4287NmSFhQQgCdUVL0YiVIFpj7ac&libraries=places&callback=initGoogleMaps" async defer></script>
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/maps.js" type="module"></script>
+    <script src="js/donate-food.js" type="module"></script>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+
+            <!-- Main Navigation -->
+            <nav class="navbar-menu">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                    <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                    <li><a href="donate-food.html" class="active"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                    <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+
+            <!-- Right Side Menu -->
+            <div class="navbar-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown notifications-dropdown">
+                    <button class="dropdown-toggle" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark all as read</button>
+                            </div>
+                        <ul class="notification-list">
+                            <li class="notification-item unread">
+                                <div class="notification-icon green">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                    <p class="notification-text">Your food donation was claimed!</p>
+                                    <p class="notification-time">Just now</p>
+                                    </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon blue">
+                                    <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                    <p class="notification-text">You earned 75 points for your donation</p>
+                                    <p class="notification-time">2 hours ago</p>
+                                    </div>
+                            </li>
+                            <li class="notification-item unread">
+                                <div class="notification-icon amber">
+                                    <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                    <p class="notification-text">You earned the "Food Savior" badge!</p>
+                                    <p class="notification-time">Yesterday</p>
+                                    </div>
+                            </li>
+                        </ul>
+                                <a href="#" class="view-all">View all notifications</a>
+                            </div>
+                        </div>
+
+                <!-- User Menu -->
+                    <div class="dropdown user-dropdown">
+                    <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                        <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                            <span class="user-name">John Doe</span>
+                        </button>
+                        <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars"></i>
+                    </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-container">
+            <ul class="mobile-menu-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="report-waste.html"><i class="fas fa-exclamation-triangle"></i> Report Waste</a></li>
+                <li><a href="sell-waste.html"><i class="fas fa-dollar-sign"></i> Sell Waste</a></li>
+                <li><a href="donate-food.html" class="active"><i class="fas fa-utensils"></i> Donate Food</a></li>
+                <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="theme-toggle mobile" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+                <a href="#" class="mobile-profile">
+                    <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                    <span>My Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                    <h1>Donate Surplus Food</h1>
+                <p>Share excess food with those who need it most and reduce food waste</p>
+            </div>
+        </section>
+
+        <!-- Donate Food Form Section -->
+        <section class="donate-food-section">
+            <div class="container">
+                <div class="donate-food-grid">
+                    <!-- Create Donation Form -->
+                    <div class="donate-food-form-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-heart"></i> Create Food Donation</h2>
+                            </div>
+                            <div class="card-body">
+                                <form id="donation-form">
+                                    <div class="form-group">
+                                        <label for="food-type">Food Type</label>
+                                        <select id="food-type" required>
+                                            <option value="" disabled selected>Select food type</option>
+                                            <option value="prepared-meals">Prepared Meals</option>
+                                            <option value="groceries">Groceries</option>
+                                            <option value="fresh-produce">Fresh Produce</option>
+                                            <option value="canned-goods">Canned/Packaged Goods</option>
+                                            <option value="baked-goods">Baked Goods</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group" id="other-type-container" style="display: none;">
+                                        <label for="other-type">Specify Other Type</label>
+                                        <input type="text" id="other-type" placeholder="Specify the food type">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="title">Listing Title</label>
+                                        <input type="text" id="title" placeholder="E.g., Homemade Lasagna for 8 people" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity</label>
+                                        <div class="quantity-input">
+                                            <input type="number" id="quantity" min="1" required>
+                                            <select id="unit">
+                                                <option value="servings">Servings</option>
+                                                <option value="items">Items</option>
+                                                <option value="pounds">Pounds (lb)</option>
+                                                <option value="kg">Kilograms (kg)</option>
+                                                <option value="boxes">Boxes</option>
+                                            </select>
+                                        </div>
+                        </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea id="description" rows="4" placeholder="Describe the food items, preparation date, and any important dietary information..." required></textarea>
+                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Contains Allergens</label>
+                                        <div class="allergens-container">
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="allergen-dairy" name="allergens[]" value="dairy">
+                                                <label for="allergen-dairy">Dairy</label>
+                        </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="allergen-nuts" name="allergens[]" value="nuts">
+                                                <label for="allergen-nuts">Nuts</label>
+                    </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="allergen-gluten" name="allergens[]" value="gluten">
+                                                <label for="allergen-gluten">Gluten</label>
+                        </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="allergen-eggs" name="allergens[]" value="eggs">
+                                                <label for="allergen-eggs">Eggs</label>
+                    </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="allergen-soy" name="allergens[]" value="soy">
+                                                <label for="allergen-soy">Soy</label>
+                        </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="allergen-shellfish" name="allergens[]" value="shellfish">
+                                                <label for="allergen-shellfish">Shellfish</label>
+                    </div>
+                </div>
+            </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="expiry-date">Best Before / Expiry Date</label>
+                                        <input type="date" id="expiry-date" required>
+                </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Pickup/Delivery Options</label>
+                                        <div class="pickup-options">
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="option-pickup" name="options[]" value="pickup" checked>
+                                                <label for="option-pickup">Available for Pickup</label>
+                        </div>
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="option-delivery" name="options[]" value="delivery">
+                                                <label for="option-delivery">I can deliver (within 5 miles)</label>
+                    </div>
+                        </div>
+                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Pickup Location</label>
+                                        <div class="location-options">
+                                            <div class="radio-group">
+                                                <input type="radio" id="profile-location" name="location" value="profile" checked>
+                                                <label for="profile-location">Use My Profile Address</label>
+                        </div>
+                                            <div class="radio-group">
+                                                <input type="radio" id="custom-location" name="location" value="custom">
+                                                <label for="custom-location">Set Custom Location</label>
+                    </div>
+                </div>
+            </div>
+                                    
+                                    <div class="form-group" id="location-map-container" style="display: none;">
+                                        <label for="custom-address">Custom Pickup Address</label>
+                                        <input type="text" id="custom-address" placeholder="Enter address for pickup">
+                                        <div id="location-map" class="location-map"></div>
+                                        <p class="map-note">Drag the marker to set your exact location</p>
+                                        <input type="hidden" id="location-lat" name="lat">
+                                        <input type="hidden" id="location-lng" name="lng">
+                </div>
+                                    
+                                <div class="form-group">
+                                        <label for="food-photos">Upload Photos</label>
+                                        <div class="file-upload">
+                                            <input type="file" id="food-photos" multiple accept="image/*">
+                                            <label for="food-photos" class="file-upload-label">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <span>Choose files or drag & drop</span>
+                                            </label>
+                                </div>
+                                        <div class="photo-preview"></div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" id="safety-agreement" required>
+                                            <label for="safety-agreement">I confirm that the food is safe for consumption and agree to the <a href="food-donation-guidelines.html">Food Donation Guidelines</a>.</label>
+                                </div>
+                            </div>
+                                    
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary btn-block">Create Donation Listing</button>
+                                    </div>
+                                </form>
+                            </div>
+                                </div>
+                                </div>
+                    
+                    <!-- Donate Food Info -->
+                    <div class="donate-food-info-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-info-circle"></i> How It Works</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="how-it-works">
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>1</span>
+                                </div>
+                                        <div class="step-content">
+                                            <h3>Create Your Listing</h3>
+                                            <p>Fill out the form with details about your food donation, including type, quantity, and photos.</p>
+                            </div>
+                        </div>
+                        
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>2</span>
+                                        </div>
+                                        <div class="step-content">
+                                            <h3>Get Connected</h3>
+                                            <p>Local food banks, shelters, or individuals in need will contact you to claim the food.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>3</span>
+                                        </div>
+                                        <div class="step-content">
+                                            <h3>Arrange Handoff</h3>
+                                            <p>Coordinate a time for pickup or delivery that works for both parties.</p>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="step">
+                                        <div class="step-icon">
+                                            <span>4</span>
+                                </div>
+                                        <div class="step-content">
+                                            <h3>Make a Difference</h3>
+                                            <p>Reduce food waste, help those in need, and earn TrashClick points for your contribution.</p>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card tips-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-lightbulb"></i> Food Donation Tips</h2>
+                            </div>
+                            <div class="card-body">
+                                <ul class="tips-list">
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Ensure all food is properly stored and still safe to eat</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Include clear preparation/use-by dates for homemade foods</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>List all ingredients and potential allergens</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Provide clear storage and reheating instructions</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Take clear photos that accurately show the food</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card impact-card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-chart-line"></i> Food Waste Impact</h2>
+                        </div>
+                            <div class="card-body">
+                                <div class="impact-stats">
+                                    <div class="impact-stat">
+                                        <div class="impact-number">1.3B</div>
+                                        <div class="impact-text">Tons of food wasted globally each year</div>
+                </div>
+                                    <div class="impact-stat">
+                                        <div class="impact-number">30%</div>
+                                        <div class="impact-text">Of all food produced is never consumed</div>
+            </div>
+                                    <div class="impact-stat">
+                                        <div class="impact-number">8%</div>
+                                        <div class="impact-text">Of global greenhouse gases come from food waste</div>
+                        </div>
+                                </div>
+                                <p class="impact-note">By donating your surplus food, you're helping to reduce these numbers while supporting your community.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner Organizations Section -->
+        <section class="partner-orgs-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Partner Organizations</h2>
+                    <p>We work with these wonderful organizations to distribute your food donations</p>
+                </div>
+                
+                <div class="partner-orgs-grid">
+                    <div class="partner-org">
+                        <div class="partner-org-logo">
+                            <img src="img/partner-1.jpg" alt="Local Food Bank logo">
+                        </div>
+                        <div class="partner-org-content">
+                            <h3>City Food Bank</h3>
+                            <p>Distributing food to those in need throughout the city, serving over 20,000 people each month.</p>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="partner-org">
+                        <div class="partner-org-logo">
+                            <img src="img/partner-2.jpg" alt="Homeless Shelter logo">
+                        </div>
+                        <div class="partner-org-content">
+                            <h3>Hope Shelter</h3>
+                            <p>Providing meals and shelter to homeless individuals and families in our community.</p>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="partner-org">
+                        <div class="partner-org-logo">
+                            <img src="img/partner-3.jpg" alt="Community Kitchen logo">
+                        </div>
+                        <div class="partner-org-content">
+                            <h3>Community Kitchen</h3>
+                            <p>Serving hot meals to anyone in need and training people for careers in the food industry.</p>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="partner-org">
+                        <div class="partner-org-logo">
+                            <img src="img/partner-4.jpg" alt="Senior Center logo">
+                        </div>
+                        <div class="partner-org-content">
+                            <h3>Golden Years Center</h3>
+                            <p>Supporting seniors with meals, companionship, and activities to maintain independence and dignity.</p>
+                            <a href="#" class="partner-link">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="partner-cta">
+                    <p>Are you a food-related charity organization?</p>
+                    <a href="partner-application.html" class="btn btn-secondary">Become a Partner</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p class="footer-desc">Smart waste management platform helping communities create a cleaner, more sustainable future through technology and cooperation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                    <h3>Quick Links</h3>
+                        <ul>
+                        <li><a href="index.html">Home</a></li>
+                            <li><a href="report-waste.html">Report Waste</a></li>
+                            <li><a href="sell-waste.html">Sell Waste</a></li>
+                            <li><a href="donate-food.html">Donate Food</a></li>
+                            <li><a href="community.html">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                        <li><a href="about.html">About Us</a></li>
+                            <li><a href="team.html">Our Team</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="press.html">Press</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="guidelines.html">Guidelines</a></li>
+                            <li><a href="support.html">Support Center</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                    </ul>
+                </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="cookies.html">Cookie Policy</a></li>
+                            <li><a href="data-processing.html">Data Processing</a></li>
+                            <li><a href="compliance.html">Compliance</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-download">
+                    <a href="#" class="download-btn"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="download-btn"><i class="fab fa-google-play"></i> Google Play</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Donation Listed Successfully!</h2>
+                <p>Your food donation has been published. We'll notify you when someone claims it.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary donate-again-btn">Donate More Food</button>
+                    <button class="btn btn-outline dashboard-btn">Go to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="toast"></div>
+</body>
+</html>
+

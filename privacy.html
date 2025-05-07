@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/utils.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+            </div>
+            
+            <nav class="navbar-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Services</a>
+                        <div class="dropdown-menu">
+                            <a href="report-waste.html">Report Waste</a>
+                            <a href="sell-waste.html">Sell Waste</a>
+                            <a href="donate-food.html">Donate Food</a>
+                            <a href="raise-query.html">Raise Query</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="navbar-actions auth-links">
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            
+            <div class="navbar-actions user-actions" style="display: none;">
+                <div class="theme-toggle-wrapper">
+                    <span class="theme-icon"><i class="fas fa-sun"></i></span>
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                </div>
+                
+                <div class="notification-dropdown">
+                    <button class="btn btn-icon" aria-label="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+                <div class="user-dropdown" id="user-dropdown">
+                    <button class="user-dropdown-toggle">
+                        <img src="img/default-avatar.jpg" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown-menu">
+                        <a href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="rewards.html">
+                            <i class="fas fa-trophy"></i>
+                            Rewards
+                        </a>
+                        <a href="admin/index.html" class="admin-link" style="display: none;">
+                            <i class="fas fa-user-shield"></i>
+                            Admin Panel
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <div class="container">
+                <a href="report-waste.html">Report Waste</a>
+                <a href="sell-waste.html">Sell Waste</a>
+                <a href="donate-food.html">Donate Food</a>
+                <a href="raise-query.html">Raise Query</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="mobile-actions auth-links">
+                    <a href="login.html" class="btn btn-ghost-mobile">Login</a>
+                    <a href="register.html" class="btn btn-primary-mobile">Register</a>
+                </div>
+                <div class="mobile-actions user-menu" style="display: none;">
+                    <a href="dashboard.html" class="btn btn-ghost-mobile">Dashboard</a>
+                    <a href="profile.html" class="btn btn-ghost-mobile">Profile</a>
+                    <a href="rewards.html" class="btn btn-ghost-mobile">Rewards</a>
+                    <a href="admin/index.html" class="btn btn-ghost-mobile admin-link" style="display: none;">Admin Panel</a>
+                    <a href="#" id="mobile-logout-btn" class="btn btn-primary-mobile">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy is important to us. Learn how we collect, use, and protect your information.</p>
+        </div>
+        
+        <div class="content-section">
+            <div class="terms-content">
+                <section class="terms-section">
+                    <h2>1. Introduction</h2>
+                    <p>TrashClick ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services, including our mobile application (collectively, the "Services").</p>
+                    <p>Please read this Privacy Policy carefully. If you do not agree with the terms of this Privacy Policy, please do not access the Services.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>2. Information We Collect</h2>
+                    <h3>Personal Data</h3>
+                    <p>We may collect personal information that you voluntarily provide to us when you register for an account, express interest in obtaining information about us or our products and Services, participate in activities on the Services, or otherwise contact us. The personal information we collect may include:</p>
+                    <ul>
+                        <li>Name</li>
+                        <li>Email address</li>
+                        <li>Phone number</li>
+                        <li>Home address</li>
+                        <li>Profile photo</li>
+                        <li>Account credentials (username, password)</li>
+                        <li>Payment information</li>
+                    </ul>
+                    
+                    <h3>Derivative Data</h3>
+                    <p>Our servers automatically collect information when you access the Services, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the Services. If you use our mobile application, we may also collect device information, mobile device ID, device type, and operating system information.</p>
+                    
+                    <h3>Location Data</h3>
+                    <p>We collect location data when you use our Services, such as when you report waste or set a pickup location. We collect this data to provide you with location-based services, such as showing nearby waste collection points or tracking waste reports in your area.</p>
+                    
+                    <h3>Financial Data</h3>
+                    <p>We may collect financial information, such as bank account and payment card details, when you choose to sell recyclables or make payments through our Services.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>3. How We Use Your Information</h2>
+                    <p>We may use the information we collect about you for various purposes, including to:</p>
+                    <ul>
+                        <li>Create and manage your account</li>
+                        <li>Provide you with the Services and features you request</li>
+                        <li>Process transactions and send related information, including confirmations and receipts</li>
+                        <li>Respond to your comments, questions, and requests</li>
+                        <li>Send you technical notices, updates, security alerts, and administrative messages</li>
+                        <li>Facilitate waste pickups and recycling transactions</li>
+                        <li>Calculate and display your environmental impact and rewards</li>
+                        <li>Improve our Services and develop new products and features</li>
+                        <li>Monitor and analyze usage and trends to enhance your experience</li>
+                        <li>Detect, investigate, and prevent fraudulent transactions and other illegal activities</li>
+                        <li>Communicate with you about products, services, offers, and promotions</li>
+                        <li>Personalize your experience and deliver content and product recommendations</li>
+                    </ul>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>4. Disclosure of Your Information</h2>
+                    <p>We may share information we have collected about you in certain situations. Your information may be disclosed as follows:</p>
+                    
+                    <h3>By Law or to Protect Rights</h3>
+                    <p>We may disclose your information if required to do so by law or in response to valid legal requests (such as a court order, government request, or subpoena). We may also disclose your information when we believe disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a legal request.</p>
+                    
+                    <h3>Third-Party Service Providers</h3>
+                    <p>We may share your information with third-party service providers who perform services on our behalf, such as payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance.</p>
+                    
+                    <h3>Business Transfers</h3>
+                    <p>If we are involved in a merger, acquisition, financing, reorganization, bankruptcy, or sale of some or all of our company or our assets, your information may be transferred as part of that transaction. We will notify you of any such change in ownership or control of your personal information.</p>
+                    
+                    <h3>With Your Consent</h3>
+                    <p>We may disclose your personal information for any purpose with your consent.</p>
+                    
+                    <h3>Other Users</h3>
+                    <p>When you share waste reports, recycling offers, or other content with other users, the information you provide may be visible to those users. Your username, profile picture, and activity may also be visible to other users in certain sections of the Services, such as the leaderboard.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>5. Cookies and Tracking Technologies</h2>
+                    <p>We may use cookies, web beacons, tracking pixels, and other tracking technologies on the Services to help customize the Services and improve your experience. We may use cookies to:</p>
+                    <ul>
+                        <li>Remember your preferences and settings</li>
+                        <li>Keep you logged in to the Services</li>
+                        <li>Understand how you use the Services</li>
+                        <li>Analyze trends and monitor usage</li>
+                        <li>Improve the Services and marketing efforts</li>
+                    </ul>
+                    <p>Most web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove or reject cookies. Please note that removing or rejecting cookies could affect the availability and functionality of our Services.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>6. Third-Party Websites</h2>
+                    <p>The Services may contain links to third-party websites and applications that are not affiliated with us. Once you leave our Services or are redirected to a third-party website or application, we are no longer responsible for the data collection and privacy practices of those third parties. We encourage you to review the privacy policies of any third-party sites or applications you visit.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>7. Security of Your Information</h2>
+                    <p>We use administrative, technical, and physical security measures to help protect your personal information from unauthorized access, use, or disclosure. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>8. Children's Privacy</h2>
+                    <p>The Services are not directed to children under 13 years of age. We do not knowingly collect personal information from children under 13. If we discover that a child under 13 has provided us with personal information, we will promptly delete such information. If you are a parent or guardian and you believe your child has provided us with personal information without your consent, please contact us immediately.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>9. Your Rights and Choices</h2>
+                    <h3>Account Information</h3>
+                    <p>You may review, update, correct, or delete your account information at any time by logging into your account and adjusting your profile settings. If you would like to delete your account entirely, please contact us at privacy@trashclick.com.</p>
+                    
+                    <h3>Marketing Communications</h3>
+                    <p>You can opt out of receiving promotional emails from us by clicking the "unsubscribe" link at the bottom of any promotional email we send you. Despite your opt-out selection, we may still send you non-promotional emails, such as those about your account or our ongoing business relations.</p>
+                    
+                    <h3>Location Data</h3>
+                    <p>You can choose whether to allow the Services to collect and use real-time location information by adjusting the location services settings on your device. However, some features of the Services may not function properly if location services are disabled.</p>
+                    
+                    <h3>Data Subject Rights</h3>
+                    <p>Depending on your location, you may have certain rights regarding your personal information, such as the right to:</p>
+                    <ul>
+                        <li>Access the personal information we hold about you</li>
+                        <li>Rectify inaccurate personal information</li>
+                        <li>Request the deletion of your personal information</li>
+                        <li>Object to the processing of your personal information</li>
+                        <li>Request the restriction of processing of your personal information</li>
+                        <li>Request the portability of your personal information</li>
+                    </ul>
+                    <p>To exercise these rights, please contact us at privacy@trashclick.com.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>10. Changes to this Privacy Policy</h2>
+                    <p>We may update this Privacy Policy from time to time. The updated version will be indicated by an updated "Last Updated" date and the updated version will be effective as soon as it is accessible. If we make material changes to this Privacy Policy, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this Privacy Policy frequently to be informed of how we are protecting your information.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h2>11. Contact Us</h2>
+                    <p>If you have questions or concerns about this Privacy Policy, please contact us at:</p>
+                    <p>Email: privacy@trashclick.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                    <p>Address: 123 Green Street, Eco City, EC 12345</p>
+                </section>
+                
+                <div class="terms-date">
+                    <p>Last updated: March 27, 2025</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p>Making waste management easier and more rewarding for everyone.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="leaderboard.html">Leaderboard</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="report-waste.html">Report Waste</a></li>
+                        <li><a href="sell-waste.html">Sell Waste</a></li>
+                        <li><a href="donate-food.html">Donate Food</a></li>
+                        <li><a href="raise-query.html">Raise Query</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TrashClick. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> for a cleaner planet</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="notification-toast">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <p id="notification-message"></p>
+        </div>
+        <button id="notification-close" class="notification-close">&times;</button>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/leaderboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/utils.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/leaderboard.js" type="module"></script>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+            </div>
+            
+            <nav class="navbar-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Services</a>
+                        <div class="dropdown-menu">
+                            <a href="report-waste.html">Report Waste</a>
+                            <a href="sell-waste.html">Sell Waste</a>
+                            <a href="donate-food.html">Donate Food</a>
+                            <a href="raise-query.html">Raise Query</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="navbar-actions auth-links">
+                <div class="header-actions">
+                    <div class="theme-toggle-wrapper">
+                        <span class="theme-icon"><i class="fas fa-sun"></i></span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="theme-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                    </div>
+                    
+                    <div class="notification-dropdown">
+                        <button class="btn btn-icon" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                    </div>
+                    
+                    <div class="user-dropdown" id="user-dropdown">
+                        <button class="user-dropdown-toggle">
+                            <img src="img/default-avatar.jpg" alt="User Avatar" class="user-avatar">
+                            <span class="user-name">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown-menu">
+                            <a href="dashboard.html">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                            <a href="profile.html">
+                                <i class="fas fa-user"></i>
+                                Profile
+                            </a>
+                            <a href="rewards.html">
+                                <i class="fas fa-trophy"></i>
+                                Rewards
+                            </a>
+                            <a href="admin/index.html" class="admin-link" style="display: none;">
+                                <i class="fas fa-user-shield"></i>
+                                Admin Panel
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" id="logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <div class="container">
+                <a href="report-waste.html">Report Waste</a>
+                <a href="sell-waste.html">Sell Waste</a>
+                <a href="donate-food.html">Donate Food</a>
+                <a href="raise-query.html">Raise Query</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="mobile-actions auth-links">
+                    <a href="login.html" class="btn btn-ghost-mobile">Login</a>
+                    <a href="register.html" class="btn btn-primary-mobile">Register</a>
+                </div>
+                <div class="mobile-actions user-menu" style="display: none;">
+                    <a href="dashboard.html" class="btn btn-ghost-mobile">Dashboard</a>
+                    <a href="profile.html" class="btn btn-ghost-mobile">Profile</a>
+                    <a href="rewards.html" class="btn btn-ghost-mobile">Rewards</a>
+                    <a href="admin/index.html" class="btn btn-ghost-mobile admin-link" style="display: none;">Admin Panel</a>
+                    <a href="#" id="mobile-logout-btn" class="btn btn-primary-mobile">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Leaderboard</h1>
+            <p>See who's making the biggest impact in our community</p>
+            <div id="user-rank" style="display: none;">Your Rank: #0</div>
+        </div>
+        
+        <div class="leaderboard-container">
+            <!-- Filters -->
+            <div class="leaderboard-filters">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="points">Total Points</button>
+                    <button class="filter-btn" data-filter="reports">Waste Reports</button>
+                    <button class="filter-btn" data-filter="recycling">Recycling</button>
+                    <button class="filter-btn" data-filter="donations">Donations</button>
+                </div>
+                
+                <div class="timeframe-select-wrapper">
+                    <select class="timeframe-select" id="timeframe-select">
+                        <option value="all-time">All Time</option>
+                        <option value="year">This Year</option>
+                        <option value="month">This Month</option>
+                        <option value="week">This Week</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Leaderboard Content -->
+            <div id="leaderboard-list" class="leaderboard-list">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading leaderboard...
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2>Join Our Community</h2>
+                <p>Make a difference, track your impact, and climb the ranks!</p>
+                <div class="cta-buttons">
+                    <a href="report-waste.html" class="btn btn-primary">Report Waste</a>
+                    <a href="register.html" class="btn btn-outline">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p>Making waste management easier and more rewarding for everyone.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="leaderboard.html">Leaderboard</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="report-waste.html">Report Waste</a></li>
+                        <li><a href="sell-waste.html">Sell Waste</a></li>
+                        <li><a href="donate-food.html">Donate Food</a></li>
+                        <li><a href="raise-query.html">Raise Query</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart"></i> for a cleaner planet</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Notification Toast -->
+    <div id="notification-toast" class="notification-toast">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <p id="notification-message"></p>
+        </div>
+        <button id="notification-close" class="notification-close">&times;</button>
+    </div>
+</body>
+</html>
+

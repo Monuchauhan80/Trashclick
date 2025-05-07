@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - TrashClick</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="TrashClick Logo">
+                    <span>TrashClick</span>
+                </a>
+            </div>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="community.html"><i class="fas fa-users"></i> Community</a></li>
+                    <li><a href="report-waste.html"><i class="fas fa-trash-alt"></i> Report Waste</a></li>
+                    <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                </ul>
+            </nav>
+            <div class="user-menu">
+                <button class="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-profile">
+                    <img src="img/avatars/user-1.jpg" alt="User Profile" class="avatar" id="profile-avatar">
+                    <div class="user-info">
+                        <span class="username" id="profile-username">John Doe</span>
+                        <button class="profile-dropdown-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="profile-dropdown">
+                            <ul>
+                                <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a></li>
+                                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="img/logo.svg" alt="TrashClick Logo" class="mobile-logo">
+                <span>TrashClick</span>
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-items">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="community.html"><i class="fas fa-users"></i> Community</a>
+            <a href="report-waste.html"><i class="fas fa-trash-alt"></i> Report Waste</a>
+            <a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+            <a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+            <a href="messages.html"><i class="fas fa-envelope"></i> Messages</a>
+            <a href="#" id="mobile-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+    <div class="mobile-menu-backdrop" id="mobile-menu-backdrop"></div>
+
+    <!-- Main Content -->
+    <main class="settings-page" id="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1><i class="fas fa-cog"></i> Settings</h1>
+                <p>Customize your TrashClick experience</p>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Settings Sidebar -->
+                <aside class="settings-sidebar">
+                    <nav class="settings-nav">
+                        <ul>
+                            <li><a href="#appearance" class="active"><i class="fas fa-palette"></i> Appearance</a></li>
+                            <li><a href="#account"><i class="fas fa-user-circle"></i> Account</a></li>
+                            <li><a href="#notifications"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="#privacy"><i class="fas fa-shield-alt"></i> Privacy</a></li>
+                            <li><a href="#accessibility"><i class="fas fa-universal-access"></i> Accessibility</a></li>
+                            <li><a href="#data"><i class="fas fa-database"></i> Data Usage</a></li>
+                            <li><a href="#language"><i class="fas fa-language"></i> Language</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- Appearance Settings -->
+                    <section id="appearance" class="settings-section active">
+                        <h2>Appearance</h2>
+                        <p>Customize how TrashClick looks for you</p>
+
+                        <div class="settings-card">
+                            <h3>Theme</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Dark Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="dark-mode-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Enable dark mode for a more comfortable viewing experience in low light.</p>
+                            </div>
+
+                            <div class="theme-previews">
+                                <div class="theme-preview light-theme" data-theme="light">
+                                    <div class="theme-preview-header"></div>
+                                    <div class="theme-preview-content"></div>
+                                    <div class="theme-preview-footer"></div>
+                                    <span class="theme-name">Light</span>
+                                </div>
+                                <div class="theme-preview dark-theme" data-theme="dark">
+                                    <div class="theme-preview-header"></div>
+                                    <div class="theme-preview-content"></div>
+                                    <div class="theme-preview-footer"></div>
+                                    <span class="theme-name">Dark</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Font Size</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Text Size</span>
+                                <div class="radio-group">
+                                    <label class="radio-button">
+                                        <input type="radio" name="font-size" value="small">
+                                        <span class="radio-label">Small</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="font-size" value="normal" checked>
+                                        <span class="radio-label">Normal</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="font-size" value="large">
+                                        <span class="radio-label">Large</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="font-size" value="x-large">
+                                        <span class="radio-label">Extra Large</span>
+                                    </label>
+                                </div>
+                                <p class="setting-description">Adjust the size of text throughout the application.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Animations</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Animation Speed</span>
+                                <div class="radio-group">
+                                    <label class="radio-button">
+                                        <input type="radio" name="animation-speed" value="slow">
+                                        <span class="radio-label">Slow</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="animation-speed" value="normal" checked>
+                                        <span class="radio-label">Normal</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="animation-speed" value="fast">
+                                        <span class="radio-label">Fast</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="animation-speed" value="none">
+                                        <span class="radio-label">None</span>
+                                    </label>
+                                </div>
+                                <p class="setting-description">Control the speed of animations or turn them off completely.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Scroll Animations</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="scroll-animations-toggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Enable animated elements when scrolling the page.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Account Settings -->
+                    <section id="account" class="settings-section">
+                        <h2>Account</h2>
+                        <p>Manage your account information and profile</p>
+
+                        <div class="settings-card">
+                            <h3>Profile Information</h3>
+                            <div class="profile-summary">
+                                <div class="profile-avatar-container">
+                                    <img src="img/avatars/user-1.jpg" alt="Profile Picture" class="profile-avatar">
+                                    <button class="change-avatar-btn"><i class="fas fa-camera"></i></button>
+                                </div>
+                                <div class="profile-info">
+                                    <h4 id="account-name">John Doe</h4>
+                                    <p id="account-email">john.doe@example.com</p>
+                                    <p class="account-joined">Member since: <span id="account-joined-date">January 15, 2023</span></p>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <a href="profile.html" class="btn btn-outline">View Profile</a>
+                                <a href="profile.html?edit=true" class="btn btn-primary">Edit Profile</a>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Account Security</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Change Password</span>
+                                <button class="btn btn-outlined" id="change-password-btn">Change Password</button>
+                                <p class="setting-description">Update your account password for better security.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Two-Factor Authentication</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="two-factor-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Add an extra layer of security to your account.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-card danger-zone">
+                            <h3>Danger Zone</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Deactivate Account</span>
+                                <button class="btn btn-danger" id="deactivate-account-btn">Deactivate Account</button>
+                                <p class="setting-description">Temporarily disable your account. You can reactivate it anytime.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Delete Account</span>
+                                <button class="btn btn-danger" id="delete-account-btn">Delete Account</button>
+                                <p class="setting-description">Permanently delete your account and all your data. This cannot be undone.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notification Settings -->
+                    <section id="notifications" class="settings-section">
+                        <h2>Notifications</h2>
+                        <p>Control how and when you receive notifications</p>
+
+                        <div class="settings-card">
+                            <h3>Notification Channels</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Email Notifications</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="email" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Receive notifications via email.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Push Notifications</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="push" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Receive notifications in your browser or mobile device.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Notification Types</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Community Activity</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="community" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Likes, comments, and mentions on your posts or activity.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Messages</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="messages" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">New messages and message requests.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Event Reminders</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="events" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Reminders for upcoming events you've joined.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Report Updates</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="reports" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Updates on waste reports you've submitted.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Badges & Achievements</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="notification-toggle" data-type="badges" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Notifications when you earn new badges or achievements.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Privacy Settings -->
+                    <section id="privacy" class="settings-section">
+                        <h2>Privacy</h2>
+                        <p>Control your privacy settings and data visibility</p>
+
+                        <div class="settings-card">
+                            <h3>Profile Visibility</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Profile Privacy</span>
+                                <select class="form-select" id="profile-privacy">
+                                    <option value="public">Public - Anyone can see your profile</option>
+                                    <option value="users">TrashClick Users - Only registered users can see your profile</option>
+                                    <option value="followers">Connections - Only people you connect with can see your profile</option>
+                                </select>
+                                <p class="setting-description">Control who can see your full profile information.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Activity Visibility</span>
+                                <select class="form-select" id="activity-privacy">
+                                    <option value="public">Public - Anyone can see your activity</option>
+                                    <option value="users">TrashClick Users - Only registered users can see your activity</option>
+                                    <option value="followers">Connections - Only people you connect with can see your activity</option>
+                                    <option value="private">Private - Keep your activity private</option>
+                                </select>
+                                <p class="setting-description">Control who can see your reports, posts, and other activities.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Location Privacy</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Location Sharing</span>
+                                <select class="form-select" id="location-privacy">
+                                    <option value="always">Always - Share your location with waste reports</option>
+                                    <option value="ask">Ask Each Time - Prompt before sharing location</option>
+                                    <option value="never">Never - Don't share your exact location</option>
+                                </select>
+                                <p class="setting-description">Control how your location is shared when reporting waste.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Location History</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="location-history-toggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Store your report locations for a personalized map view.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h3>Data & Cookies</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Personalization</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="personalization-toggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Allow TrashClick to personalize your experience based on your activity.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Cookie Settings</span>
+                                <button class="btn btn-outlined" id="cookie-settings-btn">Manage Cookies</button>
+                                <p class="setting-description">Control which cookies are used on TrashClick.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Download Your Data</span>
+                                <button class="btn btn-outlined" id="download-data-btn">Download Data</button>
+                                <p class="setting-description">Get a copy of all your TrashClick data.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Accessibility Settings -->
+                    <section id="accessibility" class="settings-section">
+                        <h2>Accessibility</h2>
+                        <p>Make TrashClick easier to use</p>
+
+                        <div class="settings-card">
+                            <h3>Accessibility Options</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Accessibility Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="accessibility-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Enable features to make TrashClick more accessible, including increased contrast and improved keyboard navigation.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Reduce Motion</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="reduce-motion-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Reduce animations and motion effects throughout the site.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">High Contrast Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="high-contrast-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Increase contrast for better readability.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Usage Settings -->
+                    <section id="data" class="settings-section">
+                        <h2>Data Usage</h2>
+                        <p>Control how TrashClick uses your data connection</p>
+
+                        <div class="settings-card">
+                            <h3>Data Usage Preferences</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Image Quality</span>
+                                <div class="radio-group">
+                                    <label class="radio-button">
+                                        <input type="radio" name="data-usage" value="low">
+                                        <span class="radio-label">Low</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="data-usage" value="normal" checked>
+                                        <span class="radio-label">Normal</span>
+                                    </label>
+                                    <label class="radio-button">
+                                        <input type="radio" name="data-usage" value="high">
+                                        <span class="radio-label">High</span>
+                                    </label>
+                                </div>
+                                <p class="setting-description">Set the quality level for images to control data usage.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Auto-play Videos</span>
+                                <select class="form-select" id="video-autoplay">
+                                    <option value="always">Always</option>
+                                    <option value="wifi">Only on Wi-Fi</option>
+                                    <option value="never">Never</option>
+                                </select>
+                                <p class="setting-description">Control when videos automatically play in your feed.</p>
+                            </div>
+
+                            <div class="setting-option">
+                                <span class="setting-label">Data Saver Mode</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="data-saver-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <p class="setting-description">Reduce data usage by loading lower quality content.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Language Settings -->
+                    <section id="language" class="settings-section">
+                        <h2>Language</h2>
+                        <p>Choose your preferred language</p>
+
+                        <div class="settings-card">
+                            <h3>Language Preferences</h3>
+                            <div class="setting-option">
+                                <span class="setting-label">Display Language</span>
+                                <select class="form-select language-selector">
+                                    <option value="en" selected>English</option>
+                                    <option value="es">Español (Spanish)</option>
+                                    <option value="fr">Français (French)</option>
+                                    <option value="de">Deutsch (German)</option>
+                                    <option value="it">Italiano (Italian)</option>
+                                    <option value="pt">Português (Portuguese)</option>
+                                    <option value="ja">日本語 (Japanese)</option>
+                                    <option value="zh">中文 (Chinese)</option>
+                                    <option value="hi">हिन्दी (Hindi)</option>
+                                    <option value="ar">العربية (Arabic)</option>
+                                </select>
+                                <p class="setting-description">Select your preferred language for the TrashClick interface.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Save Settings Button (Fixed) -->
+            <div class="save-settings-container">
+                <button class="btn btn-primary" id="save-settings">Save Settings</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="img/logo-white.svg" alt="TrashClick Logo">
+                <span>TrashClick</span>
+            </div>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="community.html">Community</a></li>
+                        <li><a href="report-waste.html">Report Waste</a></li>
+                        <li><a href="leaderboard.html">Leaderboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="about.html">Our Mission</a></li>
+                        <li><a href="about.html#team">Team</a></li>
+                        <li><a href="about.html#partners">Partners</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="raise-query.html">Raise a Query</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>Subscribe to Newsletter</h4>
+                        <form id="newsletter-form">
+                            <input type="email" placeholder="Your email" required>
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TrashClick. All rights reserved.</p>
+                <div class="app-links">
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-google-play"></i>
+                        <span>Google Play</span>
+                    </a>
+                    <a href="#" class="app-btn">
+                        <i class="fab fa-apple"></i>
+                        <span>App Store</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/settings.js"></script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="dashboard.html" class="mobile-nav-item">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="report-waste.html" class="mobile-nav-item">
+            <i class="fas fa-plus-circle"></i>
+            <span>Report</span>
+        </a>
+        <a href="leaderboard.html" class="mobile-nav-item">
+            <i class="fas fa-trophy"></i>
+            <span>Leaderboard</span>
+        </a>
+        <a href="profile.html" class="mobile-nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+</body>
+</html>
+

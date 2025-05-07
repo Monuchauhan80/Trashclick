@@ -1,0 +1,158 @@
+:root {
+  /* Primary color scheme - Teal */
+  --primary-color: #2ecc71;
+  --primary-color-light: #4cd982;
+  --primary-color-dark: #27ae60;
+  --primary-color-ultra-light: #e8f8f0;
+  
+  /* Secondary color scheme - Blue */
+  --secondary-color: #3498db;
+  --secondary-color-light: #5dace4;
+  --secondary-color-dark: #2980b9;
+  
+  /* Accent colors */
+  --accent-color-1: #e74c3c; /* Red for alerts/important actions */
+  --accent-color-2: #f39c12; /* Orange for warnings */
+  --accent-color-3: #9b59b6; /* Purple for special features */
+  --accent-color-4: #1abc9c; /* Turquoise for alternate highlights */
+  
+  /* Success/Error states */
+  --success-color: #2ecc71;
+  --error-color: #e74c3c;
+  --warning-color: #f39c12;
+  --info-color: #3498db;
+  
+  /* Neutral colors - Light mode */
+  --bg-color: #ffffff;
+  --bg-color-secondary: #f9f9f9;
+  --bg-color-tertiary: #f2f2f2;
+  --text-color: #333333;
+  --text-color-light: #666666;
+  --text-color-lighter: #999999;
+  --border-color: #e0e0e0;
+  --border-color-light: #eeeeee;
+  
+  /* Component colors */
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.08);
+  --header-bg: #ffffff;
+  --footer-bg: #2c3e50;
+  --footer-text: #ecf0f1;
+  
+  /* Status colors */
+  --waste-uncollected: #f39c12;
+  --waste-in-progress: #3498db;
+  --waste-collected: #2ecc71;
+  --waste-severe: #e74c3c;
+  
+  /* UI elements */
+  --button-hover: rgba(0, 0, 0, 0.05);
+  --focus-outline: rgba(46, 204, 113, 0.4);
+  
+  /* Dimensions and spacing */
+  --border-radius: 6px;
+  --border-radius-lg: 12px;
+  --border-radius-sm: 4px;
+  --header-height: 70px;
+  --container-width: 1200px;
+  --sidebar-width: 250px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+  
+  /* Z-index layers */
+  --z-header: 100;
+  --z-dropdown: 200;
+  --z-sidebar: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
+  --z-notification: 600;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  /* Primary color adjustments for dark theme */
+  --primary-color: #2ecc71;
+  --primary-color-light: #4cd982;
+  --primary-color-dark: #27ae60;
+  --primary-color-ultra-light: #1e3d2c;
+  
+  /* Neutral colors - Dark mode */
+  --bg-color: #121212;
+  --bg-color-secondary: #1e1e1e;
+  --bg-color-tertiary: #2a2a2a;
+  --text-color: #f0f0f0;
+  --text-color-light: #b8b8b8;
+  --text-color-lighter: #777777;
+  --border-color: #3a3a3a;
+  --border-color-light: #2c2c2c;
+  
+  /* Component colors */
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --header-bg: #1a1a1a;
+  --footer-bg: #1a1a1a;
+  
+  /* UI adjustments */
+  --button-hover: rgba(255, 255, 255, 0.05);
+  --focus-outline: rgba(46, 204, 113, 0.6);
+}
+
+/* Ocean theme - Blue/teal palette */
+.theme-ocean {
+  --primary-color: #3498db;
+  --primary-color-light: #5dace4;
+  --primary-color-dark: #2980b9;
+  --primary-color-ultra-light: #ebf5fb;
+  --secondary-color: #1abc9c;
+  --secondary-color-light: #48c9b0;
+  --secondary-color-dark: #16a085;
+}
+
+/* Earth theme - Green/brown palette */
+.theme-earth {
+  --primary-color: #2ecc71;
+  --primary-color-light: #4cd982;
+  --primary-color-dark: #27ae60;
+  --primary-color-ultra-light: #e8f8f0;
+  --secondary-color: #d35400;
+  --secondary-color-light: #e67e22;
+  --secondary-color-dark: #a04000;
+}
+
+/* Sunset theme - Orange/purple palette */
+.theme-sunset {
+  --primary-color: #e67e22;
+  --primary-color-light: #f39c12;
+  --primary-color-dark: #d35400;
+  --primary-color-ultra-light: #fef5e7;
+  --secondary-color: #9b59b6;
+  --secondary-color-light: #ac75c5;
+  --secondary-color-dark: #8e44ad;
+}
+
+/* Berry theme - Purple/pink palette */
+.theme-berry {
+  --primary-color: #9b59b6;
+  --primary-color-light: #ac75c5;
+  --primary-color-dark: #8e44ad;
+  --primary-color-ultra-light: #f5eef8;
+  --secondary-color: #e84393;
+  --secondary-color-light: #fd79a8;
+  --secondary-color-dark: #c2185b;
+}
+
+/* Accessibility theme - High contrast */
+.theme-accessibility {
+  --primary-color: #0066CC;
+  --primary-color-light: #4D94FF;
+  --primary-color-dark: #004C99;
+  --primary-color-ultra-light: #E5F0FF;
+  --text-color: #000000;
+  --text-color-light: #333333;
+  --bg-color: #FFFFFF;
+  --border-color: #000000;
+  --focus-outline: rgba(0, 102, 204, 0.8);
+} 

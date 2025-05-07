@@ -1,0 +1,159 @@
+.map-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.map-page h1 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.map-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  min-width: 180px;
+}
+
+.map-wrapper {
+  margin-bottom: 2rem;
+}
+
+.loading,
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  color: #666;
+  font-weight: 500;
+}
+
+.error-message {
+  color: #d32f2f;
+}
+
+.selected-location {
+  background-color: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.selected-location h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.report-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.report-button:hover {
+  background-color: #388e3c;
+}
+
+.reports-list {
+  margin-top: 2rem;
+}
+
+.reports-list h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.report-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #ccc;
+}
+
+.report-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.report-card p {
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.report-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.waste-type,
+.status,
+.date {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+}
+
+.status-reported {
+  border-left-color: #f44336;
+}
+
+.status-in_progress {
+  border-left-color: #ff9800;
+}
+
+.status-resolved {
+  border-left-color: #4caf50;
+}
+
+.report-card.status-reported .status {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.report-card.status-in_progress .status {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.report-card.status-resolved .status {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .map-filters {
+    flex-direction: column;
+  }
+  
+  .selected-location {
+    padding: 1rem;
+  }
+  
+  .report-card {
+    padding: 1rem;
+  }
+} 

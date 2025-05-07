@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise Query - EcoTrack</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/raise-query.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/theme.js" defer></script>
+    <script src="js/navbar.js" defer></script>
+    <script src="js/file-uploader.js" defer></script>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <i class="fas fa-leaf"></i>
+                    <span>EcoTrack</span>
+                </a>
+            </div>
+            
+            <nav class="navbar-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Services</a>
+                        <div class="dropdown-menu">
+                            <a href="report-waste.html">Report Waste</a>
+                            <a href="sell-waste.html">Sell Waste</a>
+                            <a href="donate-food.html">Donate Food</a>
+                            <a href="raise-query.html">Raise Query</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="navbar-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html" class="btn btn-ghost">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <div class="container">
+                <a href="report-waste.html">Report Waste</a>
+                <a href="sell-waste.html">Sell Waste</a>
+                <a href="donate-food.html">Donate Food</a>
+                <a href="raise-query.html">Raise Query</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="mobile-actions">
+                    <a href="login.html" class="btn btn-ghost-mobile">Login</a>
+                    <a href="register.html" class="btn btn-primary-mobile">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Raise a Query</h1>
+            <p>Report issues, ask questions, or provide feedback about waste management in your area</p>
+        </div>
+        
+        <div class="query-form-container">
+            <form id="query-form" class="query-form">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="uncollected_garbage">Uncollected Garbage</option>
+                        <option value="food_waste">Food Waste Issues</option>
+                        <option value="app_bugs">App Bugs</option>
+                        <option value="sanitation">Sanitation Problems</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="Brief title of your query" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" placeholder="Provide details about your query or issue" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <div class="location-input">
+                        <input type="text" id="location" name="location" placeholder="Location of the issue (if applicable)">
+                        <button type="button" id="get-location" class="location-btn">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </button>
+                    </div>
+                    <p class="form-hint">Click the location icon to use your current location</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>Attachments (Optional)</label>
+                    <div id="file-uploader" class="file-uploader">
+                        <div class="file-drop-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag and drop files here or click to browse</p>
+                            <p class="file-hint">Accepted file types: images (.png, .jpg, .jpeg) and videos (.mp4, .mov)</p>
+                            <button type="button" class="browse-btn">Select Files</button>
+                            <input type="file" id="file-input" multiple accept=".png,.jpg,.jpeg,.mp4,.mov" class="file-input">
+                        </div>
+                        <div id="file-preview" class="file-preview"></div>
+                    </div>
+                    <p class="form-hint">Upload images or videos as evidence (max 5 files, 5MB each)</p>
+                </div>
+                
+                <button type="submit" class="btn btn-primary submit-btn">Submit Query</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-leaf"></i>
+                        <span>EcoTrack</span>
+                    </a>
+                    <p>Transforming waste management for a cleaner, greener future.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Eco Street, Green City, 10001</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@ecotrack.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and eco-tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> EcoTrack. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Form submission
+        document.getElementById('query-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Add files
+            const fileInput = document.getElementById('file-input');
+            for (let i = 0; i < fileInput.files.length; i++) {
+                formData.append('files[]', fileInput.files[i]);
+            }
+            
+            // Simulate form submission
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                alert('Query submitted successfully! We\'ll get back to you as soon as possible.');
+                
+                // Reset form
+                document.getElementById('query-form').reset();
+                document.getElementById('file-preview').innerHTML = '';
+                
+                // Reset button
+                submitBtn.textContent = 'Submit Query';
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+        
+        // Get current location
+        document.getElementById('get-location').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        document.getElementById('location').value = `Lat: ${latitude.toFixed(6)}, Long: ${longitude.toFixed(6)}`;
+                    },
+                    function(error) {
+                        console.error('Error getting location:', error);
+                        alert('Unable to get your current location. Please check your browser permissions.');
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        });
+    </script>
+
+    <script>
+        // File uploader functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropArea = document.querySelector('.file-drop-area');
+            const fileInput = document.getElementById('file-input');
+            const filePreview = document.getElementById('file-preview');
+            const browseBtn = document.querySelector('.browse-btn');
+            
+            // Max file size (5MB)
+            const maxFileSize = 5 * 1024 * 1024;
+            // Max number of files
+            const maxFiles = 5;
+            
+            // Open file dialog when clicking the browse button
+            browseBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // Handle drag events
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            // Highlight drop area when dragging over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.classList.add('highlight');
+            }
+            
+            function unhighlight() {
+                dropArea.classList.remove('highlight');
+            }
+            
+            // Handle dropped files
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+            
+            // Handle selected files
+            fileInput.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+            
+            function handleFiles(files) {
+                // Check if adding these files would exceed the max
+                if (document.querySelectorAll('.file-item').length + files.length > maxFiles) {
+                    alert(`You can only upload a maximum of ${maxFiles} files.`);
+                    return;
+                }
+                
+                Array.from(files).forEach(file => {
+                    // Check file size
+                    if (file.size > maxFileSize) {
+                        alert(`${file.name} exceeds the maximum file size of 5MB.`);
+                        return;
+                    }
+                    
+                    // Check file type
+                    const fileType = file.type.split('/')[0];
+                    const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                    const allowedImageTypes = ['.png', '.jpg', '.jpeg'];
+                    const allowedVideoTypes = ['.mp4', '.mov'];
+                    
+                    if ((fileType === 'image' && allowedImageTypes.includes(fileExtension)) ||
+                        (fileType === 'video' && allowedVideoTypes.includes(fileExtension))) {
+                        // Create file preview
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            const fileItem = document.createElement('div');
+                            fileItem.className = 'file-item';
+                            
+                            let filePreviewContent = '';
+                            
+                            if (fileType === 'image') {
+                                filePreviewContent = `<img src="${e.target.result}" alt="${file.name}">`;
+                            } else {
+                                filePreviewContent = `<div class="video-preview"><i class="fas fa-film"></i></div>`;
+                            }
+                            
+                            fileItem.innerHTML = `
+                                <div class="file-preview-content">
+                                    ${filePreviewContent}
+                                </div>
+                                <div class="file-info">
+                                    <p class="file-name">${file.name}</p>
+                                    <p class="file-size">${(file.size / 1024).toFixed(1)} KB</p>
+                                </div>
+                                <button type="button" class="remove-file-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            `;
+                            
+                            filePreview.appendChild(fileItem);
+                            
+                            // Add remove button functionality
+                            const removeBtn = fileItem.querySelector('.remove-file-btn');
+                            removeBtn.addEventListener('click', function() {
+                                fileItem.remove();
+                            });
+                        };
+                        
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert(`${file.name} is not an accepted file type.`);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

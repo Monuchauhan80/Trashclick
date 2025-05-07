@@ -1,0 +1,219 @@
+/* Waste Reporting Page Styles */
+
+.report-page {
+  padding: 2rem 0;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+}
+
+.report-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.report-form-wrapper {
+  flex: 1;
+  min-width: 300px;
+}
+
+.map-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.report-map {
+  height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styling */
+.waste-report-form {
+  background-color: var(--background-paper);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.waste-report-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.waste-report-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.waste-report-form select,
+.waste-report-form textarea,
+.waste-report-form input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--input-background);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.waste-report-form select:focus,
+.waste-report-form textarea:focus,
+.waste-report-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.waste-report-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.waste-report-form input[type="file"] {
+  cursor: pointer;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  background-color: var(--input-background);
+}
+
+.help-text {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-top: 0.5rem;
+}
+
+/* Location Search Input */
+.location-search {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.location-search input {
+  flex: 1;
+}
+
+.location-search button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.location-search button:hover {
+  background-color: var(--secondary-dark);
+}
+
+/* Form Actions */
+.form-actions {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.form-actions .btn-primary {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Report Guidelines */
+.report-guidelines {
+  background-color: var(--background-paper);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.report-guidelines h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.report-guidelines ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.report-guidelines li {
+  margin-bottom: 0.5rem;
+}
+
+/* Custom Google Maps styling adjustments */
+.gm-style {
+  font-family: var(--font-family) !important;
+}
+
+/* Make info windows match theme */
+.gm-style .gm-style-iw {
+  background-color: var(--background-paper) !important;
+  color: var(--text-primary) !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Dark mode adjustments for Google Maps */
+:root[data-theme="dark"] .gm-style .gm-style-iw {
+  background-color: var(--background-paper) !important;
+  color: var(--text-primary) !important;
+}
+
+:root[data-theme="dark"] .gm-style .gm-style-iw button {
+  filter: invert(1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .report-container {
+    flex-direction: column;
+  }
+
+  .report-map {
+    height: 350px;
+  }
+
+  .waste-report-form {
+    padding: 1.5rem;
+  }
+
+  .location-search {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .form-actions {
+    text-align: center;
+  }
+
+  .form-actions .btn-primary {
+    width: 100%;
+  }
+} 

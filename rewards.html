@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards & Badges - TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/rewards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/rewards.js" type="module"></script>
+</head>
+<body class="light-mode">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <a href="index.html">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+            </div>
+            
+            <nav class="navbar-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">Services</a>
+                        <div class="dropdown-menu">
+                            <a href="report-waste.html">Report Waste</a>
+                            <a href="sell-waste.html">Sell Waste</a>
+                            <a href="donate-food.html">Donate Food</a>
+                            <a href="raise-query.html">Raise Query</a>
+                        </div>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="navbar-actions auth-links">
+                <div class="theme-toggle-wrapper">
+                    <span class="theme-icon"><i class="fas fa-sun"></i></span>
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                </div>
+                
+                <a href="login.html" class="btn btn-ghost">Login</a>
+                <a href="register.html" class="btn btn-primary">Register</a>
+            </div>
+            
+            <div class="navbar-actions user-dropdown" style="display: none;">
+                <div class="notification-dropdown">
+                    <button class="btn btn-icon" aria-label="Notifications" id="notifications-button">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge" id="notification-badge" style="display: none;">0</span>
+                    </button>
+                    <div class="notification-dropdown-menu">
+                        <div class="dropdown-header">
+                            <h3>Notifications</h3>
+                            <button class="btn-link mark-all-read">Mark all as read</button>
+                        </div>
+                        <div class="notifications-container" id="notifications-container">
+                            <div class="notification-empty">
+                                <i class="fas fa-bell-slash"></i>
+                                <p>No notifications yet</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-footer">
+                            <a href="notifications.html" class="btn-link">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="user-dropdown-toggle">
+                    <img src="img/default-avatar.jpg" alt="User Avatar" class="user-avatar">
+                    <span class="user-name">User</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="user-dropdown-menu">
+                    <a href="dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                    <a href="profile.html">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+                    <a href="rewards.html" class="active">
+                        <i class="fas fa-trophy"></i>
+                        Rewards
+                    </a>
+                    <a href="admin/index.html" class="admin-link" style="display: none;">
+                        <i class="fas fa-user-shield"></i>
+                        Admin Panel
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <div class="container">
+                <a href="report-waste.html">Report Waste</a>
+                <a href="sell-waste.html">Sell Waste</a>
+                <a href="donate-food.html">Donate Food</a>
+                <a href="raise-query.html">Raise Query</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <div class="mobile-actions auth-links">
+                    <a href="login.html" class="btn btn-ghost-mobile">Login</a>
+                    <a href="register.html" class="btn btn-primary-mobile">Register</a>
+                </div>
+                <div class="mobile-actions user-menu" style="display: none;">
+                    <a href="dashboard.html" class="btn btn-ghost-mobile">Dashboard</a>
+                    <a href="profile.html" class="btn btn-ghost-mobile">Profile</a>
+                    <a href="rewards.html" class="btn btn-ghost-mobile active">Rewards</a>
+                    <a href="admin/index.html" class="btn btn-ghost-mobile admin-link" style="display: none;">Admin Panel</a>
+                    <a href="#" id="mobile-logout-btn" class="btn btn-primary-mobile">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="rewards-hero">
+            <div class="container">
+                <h1>Rewards & Achievements</h1>
+                <p>Track your progress, earn badges, and climb the leaderboard by contributing to a cleaner environment.</p>
+            </div>
+        </section>
+        
+        <section class="user-stats-section">
+            <div class="container">
+                <div class="user-stats-container">
+                    <div class="user-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Points</h3>
+                            <div class="stat-value" id="total-points">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Badges Earned</h3>
+                            <div class="stat-value" id="badges-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Waste Reports</h3>
+                            <div class="stat-value" id="reports-count">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="user-stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Leaderboard Rank</h3>
+                            <div class="stat-value" id="user-rank">#0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="badges-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Your Badges</h2>
+                    <p>Collect badges by participating in various eco-friendly activities on TrashClick.</p>
+                </div>
+                
+                <div class="badges-grid" id="badges-container">
+                    <div class="badge-card skeleton"></div>
+                    <div class="badge-card skeleton"></div>
+                    <div class="badge-card skeleton"></div>
+                    <div class="badge-card skeleton"></div>
+                    <div class="badge-card skeleton"></div>
+                    <div class="badge-card skeleton"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="level-progress-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Level Progress</h2>
+                    <p>Your current level and progress towards the next level.</p>
+                </div>
+                
+                <div class="level-progress-container">
+                    <div class="current-level">
+                        <div class="level-icon" id="current-level-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="level-info">
+                            <h3 id="current-level-name">Eco Novice</h3>
+                            <p id="current-level-desc">Just starting your eco journey</p>
+                        </div>
+                    </div>
+                    
+                    <div class="level-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="level-progress-fill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="current-points">0</span> / <span id="next-level-points">500</span> points to next level
+                        </div>
+                    </div>
+                    
+                    <div class="next-level">
+                        <div class="level-info">
+                            <h3 id="next-level-name">Eco Explorer</h3>
+                            <p id="next-level-desc">Exploring more eco-friendly actions</p>
+                        </div>
+                        <div class="level-icon" id="next-level-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="leaderboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Leaderboard</h2>
+                    <p>See how you rank against other eco-warriors in the community.</p>
+                </div>
+                
+                <div class="leaderboard-container">
+                    <div class="leaderboard-filters">
+                        <select id="leaderboard-timeframe">
+                            <option value="all-time" selected>All Time</option>
+                            <option value="this-month">This Month</option>
+                            <option value="this-week">This Week</option>
+                        </select>
+                    </div>
+                    
+                    <div class="leaderboard-table-container">
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>User</th>
+                                    <th>Points</th>
+                                    <th>Reports</th>
+                                    <th>Badges</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body">
+                                <tr class="skeleton-row">
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                </tr>
+                                <tr class="skeleton-row">
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                </tr>
+                                <tr class="skeleton-row">
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                    <td class="skeleton"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="leaderboard-pagination">
+                        <button class="btn btn-icon" id="prev-page" disabled><i class="fas fa-chevron-left"></i></button>
+                        <span id="page-info">Page 1 of 1</span>
+                        <button class="btn btn-icon" id="next-page" disabled><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="impact-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Your Environmental Impact</h2>
+                    <p>See the real-world difference your contributions have made.</p>
+                </div>
+                
+                <div class="impact-cards">
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="impact-info">
+                            <h3>Trees Saved</h3>
+                            <div class="impact-value" id="trees-saved">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="impact-info">
+                            <h3>CO₂ Reduced</h3>
+                            <div class="impact-value" id="co2-reduced">0 kg</div>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="impact-info">
+                            <h3>Water Saved</h3>
+                            <div class="impact-value" id="water-saved">0 liters</div>
+                        </div>
+                    </div>
+                    
+                    <div class="impact-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="impact-info">
+                            <h3>Energy Saved</h3>
+                            <div class="impact-value" id="energy-saved">0 kWh</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fas fa-recycle"></i>
+                        <span>TrashClick</span>
+                    </a>
+                    <p>Transforming waste management for a cleaner, greener future.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Green Street, Eco City, 10001</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@trashclick.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and eco-tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> TrashClick. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add notification toast component -->
+    <div id="notification-toast" class="notification-toast">
+        <div class="notification-content">
+            <span id="notification-message">Notification message</span>
+            <button id="notification-close" class="notification-close">&times;</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabaseClient, db } from './js/supabase.js';
+        import { auth } from './js/auth.js';
+        import { showNotification } from './js/utils.js';
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        let currentUser = null;
+        let userProfile = null;
+        let userRank = 0;
+        
+        // Define levels
+        const levels = [
+            { name: "Eco Novice", icon: "seedling", description: "Just starting your eco journey", points: 0 },
+            { name: "Eco Explorer", icon: "leaf", description: "Exploring more eco-friendly actions", points: 500 },
+            { name: "Eco Champion", icon: "tree", description: "Actively contributing to sustainability", points: 1000 },
+            { name: "Eco Warrior", icon: "shield-alt", description: "A dedicated protector of the environment", points: 2500 },
+            { name: "Eco Master", icon: "crown", description: "Master of environmental stewardship", points: 5000 },
+            { name: "Eco Legend", icon: "star", description: "Your contributions are legendary", points: 10000 }
+        ];
+        
+        // Define available badges
+        const badgesList = [
+            { id: 'welcome', name: 'Welcome', icon: 'handshake', description: 'Joined TrashClick' },
+            { id: 'first-report', name: 'First Report', icon: 'map-marker-alt', description: 'Submitted first waste report' },
+            { id: 'super-reporter', name: 'Super Reporter', icon: 'chart-line', description: 'Submitted 10+ waste reports' },
+            { id: 'recycler', name: 'Recycler', icon: 'recycle', description: 'Recycled waste materials' },
+            { id: 'donor', name: 'Food Donor', icon: 'hands-helping', description: 'Donated unused food' },
+            { id: 'eco-warrior', name: 'Eco Warrior', icon: 'shield-alt', description: 'Earned 500+ points' },
+            { id: 'community-builder', name: 'Community Builder', icon: 'users', description: 'Invited friends to join' },
+            { id: 'photogenic', name: 'Photogenic', icon: 'camera', description: 'Added photos to reports' },
+            { id: 'clean-streak', name: 'Clean Streak', icon: 'calendar-check', description: 'Activity for 7 days in a row' }
+        ];
+        
+        // Handle user profile and stats
+        async function loadUserProfile() {
+            try {
+                // Get current user
+                currentUser = await auth.getCurrentUser();
+                if (!currentUser) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                // Get user profile
+                userProfile = await db.getUserProfile(currentUser.id);
+                if (!userProfile) {
+                    showNotification('Failed to load user profile', 'error');
+                    return;
+                }
+                
+                // Update user stats
+                document.getElementById('total-points').textContent = userProfile.points || 0;
+                document.getElementById('reports-count').textContent = userProfile.reports_count || 0;
+                
+                // Update badges
+                const userBadges = userProfile.badges || [];
+                document.getElementById('badges-count').textContent = userBadges.length;
+                
+                // Load badges
+                loadUserBadges(userBadges);
+                
+                // Load level progress
+                updateLevelProgress(userProfile.points || 0);
+                
+                // Calculate environmental impact
+                calculateEnvironmentalImpact(userProfile);
+                
+                // Load leaderboard
+                loadLeaderboard();
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+                showNotification('Error loading user data', 'error');
+            }
+        }
+        
+        // Load user badges
+        function loadUserBadges(userBadges) {
+            const badgesContainer = document.getElementById('badges-container');
+            
+            // Clear skeleton loading
+            badgesContainer.innerHTML = '';
+            
+            // Create badge cards
+            badgesList.forEach(badge => {
+                const hasBadge = userBadges.includes(badge.id);
+                
+                const badgeCard = document.createElement('div');
+                badgeCard.className = `badge-card ${hasBadge ? 'earned' : 'locked'}`;
+                
+                badgeCard.innerHTML = `
+                    <div class="badge-icon">
+                        <i class="fas fa-${badge.icon}"></i>
+                    </div>
+                    <div class="badge-info">
+                        <h3>${badge.name}</h3>
+                        <p>${badge.description}</p>
+                    </div>
+                    ${!hasBadge ? '<div class="badge-lock"><i class="fas fa-lock"></i></div>' : ''}
+                `;
+                
+                badgesContainer.appendChild(badgeCard);
+            });
+        }
+        
+        // Update level progress
+        function updateLevelProgress(points) {
+            // Find current level
+            let currentLevel = levels[0];
+            let nextLevel = levels[1];
+            
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (points >= levels[i].points) {
+                    currentLevel = levels[i];
+                    nextLevel = levels[i + 1] || levels[i];
+                    break;
+                }
+            }
+            
+            // Set current level info
+            document.getElementById('current-level-name').textContent = currentLevel.name;
+            document.getElementById('current-level-desc').textContent = currentLevel.description;
+            document.getElementById('current-level-icon').innerHTML = `<i class="fas fa-${currentLevel.icon}"></i>`;
+            
+            // Set next level info
+            document.getElementById('next-level-name').textContent = nextLevel.name;
+            document.getElementById('next-level-desc').textContent = nextLevel.description;
+            document.getElementById('next-level-icon').innerHTML = `<i class="fas fa-${nextLevel.icon}"></i>`;
+            
+            // Calculate progress percentage
+            let progressPercentage = 100;
+            let currentPoints = points;
+            let pointsToNextLevel = 0;
+            
+            if (nextLevel !== currentLevel) {
+                const currentLevelPoints = currentLevel.points;
+                const nextLevelPoints = nextLevel.points;
+                pointsToNextLevel = nextLevelPoints - currentLevelPoints;
+                const pointsEarnedInLevel = points - currentLevelPoints;
+                progressPercentage = Math.min(100, Math.round((pointsEarnedInLevel / pointsToNextLevel) * 100));
+                document.getElementById('current-points').textContent = pointsEarnedInLevel;
+                document.getElementById('next-level-points').textContent = pointsToNextLevel;
+            } else {
+                document.getElementById('current-points').textContent = points;
+                document.getElementById('next-level-points').textContent = 'MAX';
+            }
+            
+            // Update progress bar
+            document.getElementById('level-progress-fill').style.width = `${progressPercentage}%`;
+        }
+        
+        // Calculate environmental impact based on user activity
+        function calculateEnvironmentalImpact(profile) {
+            const points = profile.points || 0;
+            const reports = profile.reports_count || 0;
+            const recycled = profile.recycling_count || 0;
+            
+            // These are simplified calculations for demonstration
+            const treesSaved = Math.floor(points / 200);
+            const co2Reduced = Math.round((points * 0.5) * 10) / 10; // kg
+            const waterSaved = Math.round(points * 2.5); // liters
+            const energySaved = Math.round(points * 0.75); // kWh
+            
+            // Update impact values
+            document.getElementById('trees-saved').textContent = treesSaved;
+            document.getElementById('co2-reduced').textContent = `${co2Reduced} kg`;
+            document.getElementById('water-saved').textContent = `${waterSaved} liters`;
+            document.getElementById('energy-saved').textContent = `${energySaved} kWh`;
+        }
+        
+        // Load leaderboard data
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let totalPages = 1;
+        let leaderboardData = [];
+        
+        async function loadLeaderboard() {
+            try {
+                const timeframe = document.getElementById('leaderboard-timeframe').value;
+                
+                // Get all leaderboard data for now (in production, this would be paginated)
+                const data = await db.getLeaderboard(100); // Getting more to find user rank
+                leaderboardData = data;
+                
+                // Calculate total pages
+                totalPages = Math.ceil(data.length / itemsPerPage);
+                
+                // Find user's rank
+                userRank = data.findIndex(entry => entry.id === currentUser.id) + 1;
+                document.getElementById('user-rank').textContent = userRank > 0 ? `#${userRank}` : 'Not ranked';
+                
+                // Update pagination info
+                document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+                document.getElementById('prev-page').disabled = currentPage === 1;
+                document.getElementById('next-page').disabled = currentPage === totalPages;
+                
+                // Display current page
+                displayLeaderboardPage(currentPage);
+            } catch (error) {
+                console.error('Error loading leaderboard:', error);
+                showNotification('Failed to load leaderboard data', 'error');
+            }
+        }
+        
+        // Display leaderboard page
+        function displayLeaderboardPage(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, leaderboardData.length);
+            const pageData = leaderboardData.slice(startIndex, endIndex);
+            
+            const leaderboardBody = document.getElementById('leaderboard-body');
+            leaderboardBody.innerHTML = '';
+            
+            pageData.forEach((entry, index) => {
+                const rank = startIndex + index + 1;
+                const isCurrentUser = entry.id === currentUser.id;
+                
+                const row = document.createElement('tr');
+                row.className = isCurrentUser ? 'current-user' : '';
+                
+                row.innerHTML = `
+                    <td class="rank">${rank}</td>
+                    <td class="user">
+                        <div class="user-info">
+                            <img src="${entry.avatar_url || 'img/default-avatar.jpg'}" alt="${entry.full_name} Avatar" class="user-avatar">
+                            <span>${entry.full_name}</span>
+                            ${isCurrentUser ? '<span class="current-user-badge">You</span>' : ''}
+                        </div>
+                    </td>
+                    <td class="points">${entry.points || 0}</td>
+                    <td class="reports">${entry.reports_count || 0}</td>
+                    <td class="badges">${(entry.badges || []).length}</td>
+                `;
+                
+                leaderboardBody.appendChild(row);
+            });
+        }
+        
+        // Handle pagination
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                displayLeaderboardPage(currentPage);
+                document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+                document.getElementById('prev-page').disabled = currentPage === 1;
+                document.getElementById('next-page').disabled = false;
+            }
+        });
+        
+        document.getElementById('next-page').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayLeaderboardPage(currentPage);
+                document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
+                document.getElementById('prev-page').disabled = false;
+                document.getElementById('next-page').disabled = currentPage === totalPages;
+            }
+        });
+        
+        // Handle timeframe change
+        document.getElementById('leaderboard-timeframe').addEventListener('change', loadLeaderboard);
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserProfile();
+            
+            // Handle notifications
+            const notificationsBtn = document.getElementById('notifications-button');
+            if (notificationsBtn) {
+                notificationsBtn.addEventListener('click', () => {
+                    const dropdown = document.querySelector('.notification-dropdown-menu');
+                    dropdown.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.notification-dropdown')) {
+                        const dropdown = document.querySelector('.notification-dropdown-menu');
+                        if (dropdown) {
+                            dropdown.classList.remove('active');
+                        }
+                    }
+                });
+            }
+            
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', async (e) => {
+                e.preventDefault();
+                await auth.logout();
+            });
+            
+            document.getElementById('mobile-logout-btn').addEventListener('click', async (e) => {
+                e.preventDefault();
+                await auth.logout();
+            });
+        });
+    </script>
+</body>
+</html>
+

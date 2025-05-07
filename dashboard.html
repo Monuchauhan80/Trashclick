@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TrashClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Global initGoogleMaps function -->
+    <script>
+        window.initGoogleMaps = function() {
+            console.log("Google Maps API loaded successfully from global scope.");
+            document.dispatchEvent(new Event('googleMapsLoaded'));
+        };
+    </script>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ0PY4287NmSFhQQgCdUVL0YiVIFpj7ac&libraries=places&callback=initGoogleMaps" async defer></script>
+    <script src="js/supabase.js" type="module"></script>
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/theme.js" type="module"></script>
+    <script src="js/navbar.js" type="module"></script>
+    <script src="js/dashboard.js" type="module"></script>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">
+                    <i class="fas fa-recycle"></i>
+                    <span>TrashClick</span>
+                </a>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="report-waste.html">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Report Waste</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="sell-waste.html">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Sell Waste</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="donate-food.html">
+                            <i class="fas fa-utensils"></i>
+                            <span>Donate Food</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="community.html">
+                            <i class="fas fa-users"></i>
+                            <span>Community</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="leaderboard.html">
+                            <i class="fas fa-trophy"></i>
+                            <span>Leaderboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="dashboard-main">
+            <!-- Header -->
+            <header class="dashboard-header navbar">
+                <div class="container">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                    <div class="navbar-actions">
+                        <!-- Theme Toggle -->
+                        <button class="theme-toggle" aria-label="Toggle dark mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        
+                        <!-- Notifications -->
+                        <div class="dropdown notifications-dropdown">
+                            <button class="dropdown-toggle" aria-label="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                    </button>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-header">
+                                    <h3>Notifications</h3>
+                                    <button class="mark-all-read">Mark all as read</button>
+                                </div>
+                                <ul class="notification-list">
+                                    <li class="notification-item unread">
+                                        <div class="notification-icon green">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <p class="notification-text">Your waste report has been processed!</p>
+                                            <p class="notification-time">Just now</p>
+                                        </div>
+                                    </li>
+                                    <li class="notification-item unread">
+                                        <div class="notification-icon blue">
+                                            <i class="fas fa-coins"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <p class="notification-text">You earned 50 points for recycling!</p>
+                                            <p class="notification-time">2 hours ago</p>
+                                        </div>
+                                    </li>
+                                    <li class="notification-item unread">
+                                        <div class="notification-icon amber">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="notification-content">
+                                            <p class="notification-text">You've reached Eco Warrior status!</p>
+                                            <p class="notification-time">1 day ago</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <a href="#" class="view-all">View all notifications</a>
+                            </div>
+                    </div>
+                        
+                        <!-- User Menu -->
+                        <div class="dropdown user-dropdown">
+                            <button class="dropdown-toggle user-toggle" aria-label="User menu">
+                                <img src="img/avatar.jpg" alt="User avatar" class="user-avatar">
+                                <span class="user-name">John Doe</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <ul>
+                                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                                    <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                                    <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                                    <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <main class="dashboard-content">
+                <div class="dashboard-welcome">
+                    <h1>Welcome to Your Dashboard</h1>
+                    <p>Track your environmental impact and manage your waste reports</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- Overview Cards -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Waste Reports</h3>
+                                <p class="stat-number" id="waste-reports-count">0</p>
+                                <p class="stat-trend positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>5%</span> this month
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Waste Sold</h3>
+                                <p class="stat-number" id="waste-sold-count">0 kg</p>
+                                <p class="stat-trend positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>8%</span> this month
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon amber">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Food Donated</h3>
+                                <p class="stat-number" id="food-donated-count">0 kg</p>
+                                <p class="stat-trend positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>12%</span> this month
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Your Points</h3>
+                                <p class="stat-number" id="user-points">0</p>
+                                <p class="stat-trend positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>15%</span> this month
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activity Chart -->
+                    <div class="dashboard-card activity-card">
+                        <div class="card-header">
+                            <h2>Activity Overview</h2>
+                            <div class="card-actions">
+                                <select id="activity-period">
+                                    <option value="week">Last Week</option>
+                                    <option value="month" selected>Last Month</option>
+                                    <option value="year">Last Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                                <div class="chart-container">
+                                    <canvas id="activity-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Impact Stats -->
+                    <div class="dashboard-card impact-card">
+                        <div class="card-header">
+                            <h2>Environmental Impact</h2>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <div class="impact-icon">
+                                        <i class="fas fa-tree"></i>
+                                    </div>
+                                    <div class="impact-info">
+                                        <h3>CO₂ Reduced</h3>
+                                        <p class="impact-value">125 kg</p>
+                                </div>
+                            </div>
+                            
+                                <div class="impact-stat">
+                                    <div class="impact-icon">
+                                        <i class="fas fa-water"></i>
+                                    </div>
+                                    <div class="impact-info">
+                                        <h3>Water Saved</h3>
+                                        <p class="impact-value">850 L</p>
+                                </div>
+                            </div>
+                            
+                                <div class="impact-stat">
+                                    <div class="impact-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="impact-info">
+                                        <h3>Energy Saved</h3>
+                                        <p class="impact-value">75 kWh</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="impact-stat">
+                                    <div class="impact-icon">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="impact-info">
+                                        <h3>Waste Diverted</h3>
+                                        <p class="impact-value">180 kg</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Reports -->
+                    <div class="dashboard-card reports-card">
+                        <div class="card-header">
+                            <h2>Recent Reports</h2>
+                            <a href="reports.html" class="view-all-btn">View All</a>
+                        </div>
+                        
+                        <div class="card-content" id="recent-reports-container">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading reports...</p>
+                            </div>
+                            <!-- Reports will be loaded here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <!-- Badges -->
+                    <div class="dashboard-card badges-card">
+                        <div class="card-header">
+                            <h2>Your Badges</h2>
+                            <a href="rewards.html" class="view-all-btn">View All</a>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="badges-grid" id="badges-container">
+                                <div class="badge-item">
+                                    <div class="badge-icon unlocked">
+                                        <i class="fas fa-seedling"></i>
+                                </div>
+                                    <div class="badge-info">
+                                        <h3>Beginner</h3>
+                                        <p>First waste report</p>
+                                </div>
+                            </div>
+                            
+                                <div class="badge-item">
+                                    <div class="badge-icon unlocked">
+                                    <i class="fas fa-recycle"></i>
+                                </div>
+                                    <div class="badge-info">
+                                        <h3>Recycler</h3>
+                                        <p>Report 5 recyclable items</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="badge-item">
+                                    <div class="badge-icon locked">
+                                        <i class="fas fa-hand-holding-heart"></i>
+                                </div>
+                                    <div class="badge-info">
+                                        <h3>Food Hero</h3>
+                                        <p>Donate 10 meals</p>
+                            </div>
+                                </div>
+                                
+                                <div class="badge-item">
+                                    <div class="badge-icon locked">
+                                        <i class="fas fa-star"></i>
+                                        </div>
+                                    <div class="badge-info">
+                                        <h3>Community Star</h3>
+                                        <p>Earn 1000 points</p>
+                                    </div>
+                                </div>
+                            </div>
+                                        </div>
+                                    </div>
+                    
+                    <!-- Leaderboard Preview -->
+                    <div class="dashboard-card leaderboard-card">
+                        <div class="card-header">
+                            <h2>Community Leaderboard</h2>
+                            <a href="leaderboard.html" class="view-all-btn">View Full Leaderboard</a>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="leaderboard-preview" id="leaderboard-preview-container">
+                                <div class="loading-spinner">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <p>Loading leaderboard...</p>
+                                </div>
+                                <!-- Leaderboard entries will be loaded here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import required modules
+        import { supabaseClient, db } from './js/supabase.js';
+        import { auth } from './js/auth.js';
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Check if user is logged in
+                const user = await auth.getCurrentUser();
+                if (!user) {
+                    // Redirect to login if not logged in
+                    window.location.href = 'login.html?redirect=dashboard.html';
+                    return;
+                }
+                
+                // Get user profile data
+                const profile = await db.getUserProfile(user.id);
+                if (!profile) {
+                    console.error('Failed to fetch user profile');
+                    return;
+                }
+                
+                // Update user info
+                updateUserInfo(profile);
+                
+                // Load notifications
+                loadNotifications(user.id);
+                
+                // Load stats
+                loadUserStats(profile);
+                
+                // Load badges
+                loadUserBadges(profile);
+                
+                // Load recent activities
+                loadRecentActivities(user.id);
+                
+                // Load charts
+                initCharts(profile);
+                
+                // Set up event listeners
+                setupEventListeners();
+                
+            } catch (error) {
+                console.error('Dashboard initialization error:', error);
+            }
+        });
+        
+        // Update user information
+        function updateUserInfo(profile) {
+            // Update username
+            const userNameElements = document.querySelectorAll('#user-name, .username');
+            userNameElements.forEach(el => {
+                el.textContent = profile.full_name || 'User';
+            });
+            
+            // Update avatar
+            const avatarElements = document.querySelectorAll('#user-avatar, .user-avatar');
+            avatarElements.forEach(el => {
+                el.src = profile.avatar_url || 'img/default-avatar.jpg';
+                if (!el.alt) el.alt = 'User Avatar';
+            });
+            
+            // Update points
+            const pointsElements = document.querySelectorAll('#total-points, .points-count');
+            pointsElements.forEach(el => {
+                el.textContent = profile.points || '0';
+            });
+            
+            // Update impact summary if exists
+            const impactSummary = document.getElementById('impact-summary');
+            if (impactSummary) {
+                const treesPlanted = Math.floor((profile.points || 0) / 100);
+                const carbonSaved = Math.round(((profile.points || 0) / 10) * 2.5) / 10; // kg of CO2
+                const plasticRecycled = Math.round(((profile.points || 0) / 5) * 1.8) / 10; // kg of plastic
+                
+                impactSummary.innerHTML = `
+                    <p>Your actions have contributed to:</p>
+                    <ul>
+                        <li><i class="fas fa-tree"></i> ${treesPlanted} trees planted</li>
+                        <li><i class="fas fa-cloud"></i> ${carbonSaved} kg CO2 saved</li>
+                        <li><i class="fas fa-recycle"></i> ${plasticRecycled} kg plastic recycled</li>
+                    </ul>
+                `;
+            }
+        }
+        
+        // Load notifications
+        async function loadNotifications(userId) {
+            try {
+                const notifications = await db.getNotifications(userId);
+                const badge = document.querySelector('.notification-dropdown .badge');
+                
+                if (!badge) return;
+                
+                // Count unread notifications
+                const unreadCount = notifications.filter(n => !n.read).length;
+                
+                // Update badge
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.style.display = 'flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+                
+                // Update dropdown if it exists
+                const container = document.querySelector('.notifications-container');
+                if (container) {
+                    // Empty container
+                    container.innerHTML = '';
+                    
+                    if (notifications.length === 0) {
+                        container.innerHTML = `
+                            <div class="notification-empty">
+                                <i class="fas fa-bell-slash"></i>
+                                <p>No notifications yet</p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // Add notifications to container
+                    notifications.forEach(notification => {
+                        const date = new Date(notification.created_at);
+                        const formattedDate = date.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+                        
+                        const notificationItem = document.createElement('div');
+                        notificationItem.className = `notification-item ${notification.read ? '' : 'unread'}`;
+                        notificationItem.dataset.id = notification.id;
+                        
+                        let icon;
+                        switch (notification.type) {
+                            case 'badge': icon = 'trophy'; break;
+                            case 'points': icon = 'star'; break;
+                            case 'report': icon = 'clipboard-check'; break;
+                            default: icon = 'bell';
+                        }
+                        
+                        notificationItem.innerHTML = `
+                            <div class="notification-icon">
+                                <i class="fas fa-${icon}"></i>
+                            </div>
+                            <div class="notification-content">
+                                <h4>${notification.title}</h4>
+                                <p>${notification.message}</p>
+                                <span class="notification-time">${formattedDate}</span>
+                            </div>
+                        `;
+                        
+                        container.appendChild(notificationItem);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+            }
+        }
+        
+        // Load user stats
+        async function loadUserStats(profile) {
+            // Update waste reports count
+            const reportsCount = document.getElementById('waste-reports-count');
+            if (reportsCount) {
+                reportsCount.textContent = profile.reports_count || '0';
+            }
+            
+            // Update waste sold count
+            const wasteSoldCount = document.getElementById('waste-sold-count');
+            if (wasteSoldCount) {
+                wasteSoldCount.textContent = `${profile.recycling_count || '0'} kg`;
+            }
+            
+            // Update food donated count
+            const foodDonatedCount = document.getElementById('food-donated-count');
+            if (foodDonatedCount) {
+                foodDonatedCount.textContent = `${profile.donations_count || '0'} kg`;
+            }
+            
+            // Update points count
+            const pointsCount = document.getElementById('user-points');
+            const pointsCount = document.getElementById('points-count');
+            if (pointsCount) {
+                pointsCount.textContent = profile.points || '0';
+            }
+        }
+        
+        // Load user badges
+        async function loadUserBadges(profile) {
+            const badgesContainer = document.getElementById('badges-container');
+            if (!badgesContainer) return;
+            
+            // Clear container
+            badgesContainer.innerHTML = '';
+            
+            // Define badges
+            const badgesList = [
+                { id: 'welcome', name: 'Welcome', icon: 'handshake', description: 'Joined TrashClick' },
+                { id: 'first-report', name: 'First Report', icon: 'map-marker-alt', description: 'Submitted first waste report' },
+                { id: 'super-reporter', name: 'Super Reporter', icon: 'chart-line', description: 'Submitted 10+ waste reports' },
+                { id: 'recycler', name: 'Recycler', icon: 'recycle', description: 'Recycled waste materials' },
+                { id: 'donor', name: 'Food Donor', icon: 'hands-helping', description: 'Donated unused food' },
+                { id: 'eco-warrior', name: 'Eco Warrior', icon: 'shield-alt', description: 'Earned 500+ points' }
+            ];
+            
+            // Get user badges
+            const userBadges = profile.badges || [];
+            
+            // Check which badges the user has earned
+            badgesList.forEach(badge => {
+                const hasBadge = userBadges.includes(badge.id);
+                
+                const badgeElement = document.createElement('div');
+                badgeElement.className = `badge-card ${hasBadge ? 'earned' : 'locked'}`;
+                
+                badgeElement.innerHTML = `
+                    <div class="badge-icon">
+                        <i class="fas fa-${badge.icon}"></i>
+                    </div>
+                    <div class="badge-info">
+                        <h4>${badge.name}</h4>
+                        <p>${badge.description}</p>
+                    </div>
+                    ${!hasBadge ? '<div class="badge-lock"><i class="fas fa-lock"></i></div>' : ''}
+                `;
+                
+                badgesContainer.appendChild(badgeElement);
+            });
+        }
+        
+        // Load recent activities
+        async function loadRecentActivities(userId) {
+            try {
+                // Get waste reports for activities
+                const wasteReports = await db.getWasteReports({ user_id: userId });
+                
+                const activitiesContainer = document.getElementById('activities-list');
+                if (!activitiesContainer) return;
+                
+                // Clear container
+                activitiesContainer.innerHTML = '';
+                
+                if (wasteReports.length === 0) {
+                    activitiesContainer.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard"></i>
+                            <p>No activities yet</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Sort by date (newest first)
+                wasteReports.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                
+                // Limit to 5 most recent
+                const recentReports = wasteReports.slice(0, 5);
+                
+                // Add activities to container
+                recentReports.forEach(report => {
+                    const date = new Date(report.created_at);
+                    const formattedDate = date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                    
+                    const activityItem = document.createElement('div');
+                    activityItem.className = 'activity-item';
+                    
+                    // Determine icon based on waste type
+                    let icon;
+                    switch(report.waste_type) {
+                        case 'recyclable': icon = 'recycle'; break;
+                        case 'organic': icon = 'seedling'; break;
+                        case 'hazardous': icon = 'skull'; break;
+                        case 'electronic': icon = 'laptop'; break;
+                        case 'construction': icon = 'hammer'; break;
+                        default: icon = 'trash';
+                    }
+                    
+                    // Determine status class
+                    let statusClass;
+                    switch(report.status) {
+                        case 'approved': statusClass = 'success'; break;
+                        case 'rejected': statusClass = 'danger'; break;
+                        case 'in_progress': statusClass = 'warning'; break;
+                        default: statusClass = 'info';
+                    }
+                    
+                    activityItem.innerHTML = `
+                        <div class="activity-icon">
+                            <i class="fas fa-${icon}"></i>
+                            </div>
+                        <div class="activity-content">
+                            <h4>${report.title}</h4>
+                            <p>${report.location}</p>
+                            <div class="activity-meta">
+                                <span class="activity-date">${formattedDate}</span>
+                                <span class="activity-status ${statusClass}">${report.status || 'pending'}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    activitiesContainer.appendChild(activityItem);
+                });
+            } catch (error) {
+                console.error('Error loading activities:', error);
+            }
+        }
+        
+        // Initialize charts
+        function initCharts(profile) {
+            const impactChartCanvas = document.getElementById('impact-chart');
+            if (impactChartCanvas) {
+                const impactChart = new Chart(impactChartCanvas, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Waste Reports', 'Waste Sold', 'Food Donated'],
+                        datasets: [{
+                            data: [
+                                profile.reports_count || 0,
+                                profile.recycling_count || 0,
+                                profile.donations_count || 0
+                            ],
+                            backgroundColor: [
+                                '#4CAF50',
+                                '#2196F3',
+                                '#FF9800'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            const activityChartCanvas = document.getElementById('activity-chart');
+            if (activityChartCanvas) {
+                // Generate some mock data for the activity chart
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const currentMonth = new Date().getMonth();
+                const last6Months = Array.from({length: 6}, (_, i) => months[(currentMonth - 5 + i + 12) % 12]);
+                
+                const activityChart = new Chart(activityChartCanvas, {
+                    type: 'line',
+                    data: {
+                        labels: last6Months,
+                        datasets: [{
+                            label: 'Activity Points',
+                            data: [15, 25, 40, 30, 50, 65],
+                            borderColor: '#4CAF50',
+                            tension: 0.3,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Sidebar toggle
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', () => {
+                    document.querySelector('.dashboard-layout').classList.toggle('sidebar-collapsed');
+                });
+            }
+            
+            // Notification dropdown toggle
+            const notificationBtn = document.querySelector('.notification-dropdown .btn');
+            if (notificationBtn) {
+                notificationBtn.addEventListener('click', () => {
+                    const dropdown = document.querySelector('.notification-dropdown-menu');
+                    if (dropdown) {
+                        dropdown.classList.toggle('active');
+                    }
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    const dropdown = document.querySelector('.notification-dropdown-menu');
+                    if (dropdown && !e.target.closest('.notification-dropdown')) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            }
+            
+            // User dropdown toggle
+            const userDropdownToggle = document.querySelector('.user-dropdown-toggle');
+            if (userDropdownToggle) {
+                userDropdownToggle.addEventListener('click', () => {
+                    document.querySelector('.user-dropdown-menu').classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    const dropdown = document.querySelector('.user-dropdown-menu');
+                    if (dropdown && !e.target.closest('.user-dropdown')) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Logout button
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    await auth.logout();
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
